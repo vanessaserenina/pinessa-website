@@ -1,0 +1,2718 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pinessa - Hotel Amenities Supplier</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --navy: #1B3A5C;
+            --green: #4CAF50;
+            --green-dark: #388E3C;
+            --gold: #C9A84C;
+            --gold-light: #E8D5A3;
+            --cream: #F8F5F0;
+            --cream-dark: #EFE9DE;
+            --white: #FFFFFF;
+            --text: #2C2C2C;
+            --text-muted: #6B6B6B;
+            --border: #E0D8CC;
+            --shadow: rgba(27, 58, 92, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--cream);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        /* ===== NAVBAR ===== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(27, 58, 92, 0.97);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(201, 168, 76, 0.2);
+            padding: 0 48px;
+            height: 68px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.3s ease;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            margin-right: 40px;
+            text-decoration: none;
+            flex-shrink: 0;
+        }
+
+        .custom-logo {
+            height: 52px;
+            /* Slightly reduced from 52px to create more breathing room */
+            width: auto;
+            display: block;
+            padding: 5px 0;
+            /* Adds internal vertical spacing */
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+            /* Reduced gap to fit all items on one line */
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            flex-wrap: nowrap;
+            /* Prevents links from dropping to a second line */
+            flex-shrink: 1;
+            min-width: 0;
+            overflow: hidden;
+            /* Safety net: clips rather than overlapping nav-right if space runs out */
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            transition: color 0.2s;
+            position: relative;
+            white-space: nowrap;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--green);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: white;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-shrink: 0;
+        }
+
+        .lang-toggle {
+            display: flex;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .lang-btn {
+            padding: 5px 14px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            cursor: pointer;
+            color: rgba(255, 255, 255, 0.6);
+            background: none;
+            border: none;
+            transition: all 0.2s;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .lang-btn.active {
+            background: var(--green);
+            color: white;
+            border-radius: 20px;
+        }
+
+        .nav-wa {
+            background: var(--green);
+            color: white;
+            padding: 9px 20px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: background 0.2s;
+            white-space: nowrap;
+        }
+
+        .nav-wa:hover {
+            background: var(--green-dark);
+        }
+
+        /* ===== HERO ===== */
+        #hero {
+            min-height: 100vh;
+            background: var(--navy);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding: 100px 20px 60px;
+        }
+
+        /* Background Effects */
+        .hero-bg-pattern {
+            position: absolute;
+            inset: 0;
+            background-image:
+                radial-gradient(circle at 50% 50%, rgba(76, 175, 80, 0.08) 0%, transparent 70%),
+                radial-gradient(circle at 20% 80%, rgba(201, 168, 76, 0.06) 0%, transparent 40%);
+        }
+
+        .hero-grid-lines {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        /* Main Content */
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            text-align: center;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* ===== TOP SECTION ===== */
+        .hero-top {
+            margin-bottom: 40px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            background: rgba(76, 175, 80, 0.15);
+            border: 1px solid rgba(76, 175, 80, 0.3);
+
+            color: var(--green);
+
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+
+            padding: 7px 16px;
+            border-radius: 2px;
+            margin-bottom: 24px;
+
+            animation: fadeUp 0.6s ease both;
+        }
+
+        .hero-badge::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--green);
+            border-radius: 50%;
+        }
+
+        .hero-title {
+            font-size: clamp(32px, 5vw, 56px);
+            font-weight: 800;
+            color: white;
+            line-height: 1.1;
+            letter-spacing: -1px;
+            margin: 0 auto;
+
+            animation: fadeUp 0.6s 0.1s ease both;
+        }
+
+        .hero-title span {
+            color: var(--green);
+        }
+
+        /* ===== MIDDLE SECTION ===== */
+        .hero-product-highlights {
+            display: flex;
+            gap: 20px;
+            width: 100%;
+            justify-content: center;
+            flex-wrap: wrap;
+
+            margin-bottom: 40px;
+
+            animation: fadeUp 0.6s 0.2s ease both;
+        }
+
+        .product-highlight-item {
+            flex: 0 1 300px;
+            aspect-ratio: 4 / 5;
+
+            background: rgba(255, 255, 255, 0.05);
+
+            border-radius: 4px;
+            overflow: hidden;
+
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .product-highlight-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* ===== BOTTOM SECTION ===== */
+        .hero-bottom {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        .hero-desc {
+            font-size: 16px;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.7);
+
+            margin-bottom: 32px;
+
+            font-weight: 400;
+            max-width: 650px;
+
+            animation: fadeUp 0.6s 0.3s ease both;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+
+            animation: fadeUp 0.6s 0.4s ease both;
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn-primary {
+            background: var(--green);
+            color: white;
+
+            padding: 14px 32px;
+
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+
+            border: none;
+            border-radius: 3px;
+
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+
+            transition: all 0.2s;
+
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .btn-primary:hover {
+            background: var(--green-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(76, 175, 80, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: white;
+
+            padding: 14px 32px;
+
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 3px;
+
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+
+            transition: all 0.2s;
+
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .btn-outline:hover {
+            border-color: white;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        /* ===== STATS ===== */
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 48px;
+
+            margin-top: 50px;
+
+            animation: fadeUp 0.6s 0.4s ease both;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat-num {
+            font-size: 36px;
+            font-weight: 800;
+            color: white;
+            line-height: 1;
+        }
+
+        .hero-stat-num span {
+            color: var(--green);
+        }
+
+        .hero-stat-label {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+
+            color: rgba(255, 255, 255, 0.45);
+
+            margin-top: 6px;
+        }
+
+        .hero-divider {
+            width: 1px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* ===== MOBILE ===== */
+        @media (max-width: 768px) {
+            .hero-product-highlights {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+
+                width: 100%;
+                padding: 0 10px;
+
+                justify-content: flex-start;
+
+                scrollbar-width: none;
+            }
+
+            .hero-product-highlights::-webkit-scrollbar {
+                display: none;
+            }
+
+            .product-highlight-item {
+                flex: 0 0 75vw;
+                max-width: 320px;
+            }
+
+            .hero-stats {
+                position: static;
+                margin-top: 40px;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+        }
+
+        /* ===== ANIMATION ===== */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== SECTION COMMONS ===== */
+        section {
+            padding: 100px 80px;
+        }
+
+        .section-eyebrow {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--green);
+            margin-bottom: 14px;
+        }
+
+        .section-title {
+            font-size: clamp(28px, 3.5vw, 44px);
+            font-weight: 800;
+            color: var(--navy);
+            line-height: 1.15;
+            letter-spacing: -0.5px;
+        }
+
+        .section-title.light {
+            color: white;
+        }
+
+        .section-desc {
+            font-size: 15px;
+            line-height: 1.8;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin-top: 16px;
+        }
+
+        .section-desc.light {
+            color: rgba(255, 255, 255, 0.65);
+        }
+
+        .section-header {
+            margin-bottom: 60px;
+        }
+
+        /* ===== WHY PINESSA ===== */
+        #why {
+            background: var(--cream);
+            padding: 100px 80px;
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            margin-top: 60px;
+        }
+
+        .why-card {
+            background: var(--cream);
+            padding: 44px 36px;
+            transition: background 0.2s;
+            position: relative;
+        }
+
+        .why-card:hover {
+            background: white;
+        }
+
+        .why-icon {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 24px;
+        }
+
+        .why-icon svg {
+            width: 100%;
+            height: 100%;
+            stroke: var(--navy);
+            fill: none;
+            stroke-width: 1.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .why-card h3 {
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--navy);
+            margin-bottom: 12px;
+        }
+
+        .why-card p {
+            font-size: 13px;
+            line-height: 1.8;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .why-accent-line {
+            width: 32px;
+            height: 3px;
+            background: var(--green);
+            margin-bottom: 20px;
+        }
+
+        /* ===== PRODUCT CATEGORIES ===== */
+        #products {
+            background: var(--cream);
+            padding: 100px 80px;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-top: 60px;
+        }
+
+        .category-card {
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            border-radius: 4px;
+            aspect-ratio: 3/4;
+            background: var(--navy);
+            transition: transform 0.3s ease;
+        }
+
+        .category-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 48px rgba(27, 58, 92, 0.2);
+        }
+
+        .category-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease, opacity 0.3s;
+            opacity: 0.85;
+        }
+
+        .category-card:hover .category-img {
+            transform: scale(1.05);
+            opacity: 0.7;
+        }
+
+        .category-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(27, 58, 92, 0.9) 0%, rgba(27, 58, 92, 0.3) 50%, transparent 100%);
+        }
+
+        .category-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 28px 24px;
+        }
+
+        .category-label h3 {
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: white;
+            margin-bottom: 6px;
+        }
+
+        .category-label p {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: 400;
+        }
+
+        .category-arrow {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 32px;
+            height: 32px;
+            background: var(--green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.2s;
+        }
+
+        .category-card:hover .category-arrow {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .category-arrow svg {
+            width: 14px;
+            height: 14px;
+            stroke: white;
+            fill: none;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* Category placeholder images */
+        .cat-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            background: linear-gradient(135deg, var(--navy) 0%, #2a5280 100%);
+        }
+
+        /* ===== PRODUCT MODAL / PANEL ===== */
+        .product-panel {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            background: rgba(10, 20, 35, 0.7);
+            backdrop-filter: blur(4px);
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .product-panel.open {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+        }
+
+        .panel-inner {
+            background: var(--cream);
+            width: 100%;
+            max-width: 1100px;
+            border-radius: 6px;
+            overflow: hidden;
+            animation: slideUp 0.35s ease;
+            margin: auto;
+        }
+
+        .panel-header {
+            background: var(--navy);
+            padding: 28px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .panel-header h2 {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: white;
+        }
+
+        .panel-close {
+            width: 36px;
+            height: 36px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            transition: background 0.2s;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .panel-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .panel-body {
+            padding: 48px 40px;
+        }
+
+        .panel-category-desc {
+            font-size: 14px;
+            line-height: 1.8;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            max-width: 700px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: box-shadow 0.2s, transform 0.2s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px var(--shadow);
+        }
+
+        .product-img-wrap {
+            aspect-ratio: 4/3;
+            background: var(--cream-dark);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .product-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s;
+        }
+
+        .product-card:hover .product-img-wrap img {
+            transform: scale(1.06);
+        }
+
+        .product-img-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #e8e0d4 0%, #d4c8b8 100%);
+            font-size: 40px;
+        }
+
+        .product-card-body {
+            padding: 20px 22px 24px;
+        }
+
+        .product-card-name {
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            color: var(--navy);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .product-card-desc {
+            font-size: 12px;
+            line-height: 1.7;
+            color: var(--text-muted);
+            margin-bottom: 14px;
+        }
+
+        .product-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 18px;
+        }
+
+        .product-tag {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            padding: 4px 10px;
+            background: var(--cream-dark);
+            color: var(--navy);
+            border-radius: 2px;
+            text-transform: uppercase;
+        }
+
+        .product-tag.green {
+            background: rgba(76, 175, 80, 0.1);
+            color: var(--green-dark);
+        }
+
+        .product-enquire-btn {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--green);
+            text-decoration: none;
+            border-bottom: 1px solid var(--green);
+            padding-bottom: 2px;
+            transition: color 0.2s;
+        }
+
+        .product-enquire-btn:hover {
+            color: var(--green-dark);
+        }
+
+        /* ===== CUSTOM BRANDING ===== */
+        #custom {
+            background: var(--navy);
+            padding: 100px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #custom::before {
+            content: '';
+            position: absolute;
+            right: -100px;
+            top: -100px;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(76, 175, 80, 0.07) 0%, transparent 70%);
+        }
+
+        .custom-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .custom-feature-list {
+            margin-top: 36px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .custom-feature {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+
+        .custom-feature-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--green);
+            border-radius: 50%;
+            margin-top: 7px;
+            flex-shrink: 0;
+        }
+
+        .custom-feature p {
+            font-size: 14px;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 400;
+        }
+
+        .custom-feature p strong {
+            color: white;
+            font-weight: 600;
+        }
+
+        .custom-visual {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .custom-visual-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 4px;
+            padding: 28px 20px;
+            text-align: center;
+        }
+
+        .custom-visual-card:first-child {
+            grid-column: 1 / -1;
+            background: rgba(76, 175, 80, 0.08);
+            border-color: rgba(76, 175, 80, 0.2);
+        }
+
+        .custom-visual-card h4 {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.5);
+            margin-bottom: 10px;
+        }
+
+        .custom-visual-card p {
+            font-size: 13px;
+            color: white;
+            font-weight: 500;
+            line-height: 1.5;
+        }
+
+        /* ===== PORTFOLIO / CLIENTS ===== */
+        #portfolio {
+            background: var(--cream-dark);
+            padding: 100px 80px;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            margin-top: 60px;
+        }
+
+        .portfolio-item {
+            background: var(--cream);
+            aspect-ratio: 16/10;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .portfolio-item-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #d4ccc0 0%, #c4b9a8 100%);
+            gap: 8px;
+        }
+
+        .portfolio-item-placeholder span {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: rgba(27, 58, 92, 0.5);
+        }
+
+        .portfolio-item-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(27, 58, 92, 0.85);
+            padding: 14px 20px;
+        }
+
+        .portfolio-item-label span {
+            font-size: 12px;
+            font-weight: 600;
+            color: white;
+            letter-spacing: 0.5px;
+        }
+
+        .client-logos {
+            margin-top: 80px;
+        }
+
+        .client-logos-title {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 36px;
+            text-align: center;
+        }
+
+        .client-logos-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0;
+            border: 1px solid var(--border);
+        }
+
+        .client-logo-item {
+            flex: 1;
+            min-width: 140px;
+            padding: 28px 20px;
+            border-right: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            text-align: center;
+            transition: all 0.2s;
+            background: white;
+            line-height: 1.4;
+        }
+
+        .client-logo-item:hover {
+            background: var(--navy);
+            color: white;
+        }
+
+        /* ===== ABOUT ===== */
+        #about {
+            background: var(--cream);
+            padding: 100px 80px;
+        }
+
+        .about-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .about-visual {
+            position: relative;
+        }
+
+        .about-img-main {
+            width: 100%;
+            aspect-ratio: 4/3;
+            background: var(--navy);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .about-img-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1B3A5C 0%, #2a5280 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .about-badge-float {
+            position: absolute;
+            bottom: -24px;
+            right: -24px;
+            background: var(--green);
+            padding: 24px 28px;
+            border-radius: 4px;
+            box-shadow: 0 8px 24px rgba(76, 175, 80, 0.3);
+            text-align: center;
+        }
+
+        .about-badge-float .num {
+            font-size: 36px;
+            font-weight: 800;
+            color: white;
+            line-height: 1;
+        }
+
+        .about-badge-float .lbl {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 4px;
+        }
+
+        .about-content {
+            padding-left: 20px;
+        }
+
+        .about-content .section-title {
+            margin-bottom: 24px;
+        }
+
+        .about-text {
+            font-size: 14px;
+            line-height: 1.9;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .about-text:last-of-type {
+            margin-bottom: 0;
+        }
+
+        /* ===== CONTACT ===== */
+        #contact {
+            background: var(--navy);
+            padding: 100px 80px;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.4fr;
+            gap: 80px;
+            margin-top: 60px;
+        }
+
+        .contact-info h3 {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--green);
+            margin-bottom: 24px;
+        }
+
+        .contact-item {
+            margin-bottom: 32px;
+        }
+
+        .contact-item-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.35);
+            margin-bottom: 8px;
+        }
+
+        .contact-item-value {
+            font-size: 14px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.7;
+        }
+
+        .contact-item-value a {
+            color: rgba(255, 255, 255, 0.85);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .contact-item-value a:hover {
+            color: var(--green);
+        }
+
+        .wa-btn-large {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #25D366;
+            color: white;
+            padding: 16px 28px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-top: 32px;
+            width: fit-content;
+            transition: all 0.2s;
+        }
+
+        .wa-btn-large:hover {
+            background: #128C7E;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(37, 211, 102, 0.3);
+        }
+
+        .wa-icon {
+            width: 22px;
+            height: 22px;
+            fill: white;
+        }
+
+        /* Contact Form */
+        .contact-form {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            padding: 44px 40px;
+        }
+
+        .contact-form h3 {
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: white;
+            margin-bottom: 8px;
+        }
+
+        .form-subtitle {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.45);
+            margin-bottom: 32px;
+            font-weight: 400;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.45);
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: white;
+            padding: 12px 16px;
+            font-size: 13px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 400;
+            border-radius: 3px;
+            transition: border-color 0.2s, background 0.2s;
+            outline: none;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.25);
+        }
+
+        .form-group select option {
+            background: var(--navy);
+            color: white;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--green);
+            background: rgba(76, 175, 80, 0.06);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 110px;
+        }
+
+        .form-submit {
+            width: 100%;
+            background: var(--green);
+            color: white;
+            border: none;
+            padding: 15px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 3px;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.2s;
+            margin-top: 8px;
+        }
+
+        .form-submit:hover {
+            background: var(--green-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(76, 175, 80, 0.25);
+        }
+
+        .form-note {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.3);
+            margin-top: 12px;
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        /* Success message */
+        .form-success {
+            display: none;
+            text-align: center;
+            padding: 32px;
+        }
+
+        .form-success h4 {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--green);
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        .form-success p {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.7;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: #0F2138;
+            padding: 60px 80px 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+            margin-bottom: 52px;
+        }
+
+        .footer-brand .logo-text {
+            font-size: 20px;
+            display: block;
+            margin-bottom: 16px;
+        }
+
+        .footer-logo {
+            height: 80px;
+            width: auto;
+            display: block;
+            margin-bottom: 16px;
+            /* NOTE: footer background is dark navy (#0F2138). If your logo file is
+               dark-colored / not designed for dark backgrounds, either supply a
+               light/reversed version here, or uncomment the filter below as a
+               quick approximation (works best on solid dark-colored logos):
+               filter: brightness(0) invert(1); */
+        }
+
+        .footer-tagline {
+            font-size: 12px;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.4);
+            font-weight: 400;
+            max-width: 280px;
+        }
+
+        .footer-col h4 {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.35);
+            margin-bottom: 20px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-col ul li a {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.55);
+            text-decoration: none;
+            font-weight: 400;
+            transition: color 0.2s;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--green);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding-top: 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-copy {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.25);
+            font-weight: 400;
+        }
+
+        .footer-lang {
+            display: flex;
+            gap: 8px;
+        }
+
+        .footer-lang a {
+            font-size: 11px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.3);
+            text-decoration: none;
+            letter-spacing: 1px;
+            transition: color 0.2s;
+        }
+
+        .footer-lang a:hover {
+            color: var(--green);
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(32px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== SCROLL REVEAL ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-delay-1 {
+            transition-delay: 0.1s;
+        }
+
+        .reveal-delay-2 {
+            transition-delay: 0.2s;
+        }
+
+        .reveal-delay-3 {
+            transition-delay: 0.3s;
+        }
+
+        .reveal-delay-4 {
+            transition-delay: 0.4s;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1300px) {
+            nav {
+                padding: 0 28px;
+            }
+
+            .nav-logo {
+                margin-right: 24px;
+            }
+
+            .nav-links {
+                gap: 14px;
+            }
+
+            .nav-links a {
+                font-size: 11px;
+                letter-spacing: 1px;
+            }
+
+            .nav-right {
+                gap: 10px;
+            }
+
+            .lang-btn {
+                padding: 5px 10px;
+                font-size: 10px;
+            }
+
+            .nav-wa {
+                padding: 8px 14px;
+                font-size: 10px;
+            }
+        }
+
+        @media (max-width: 1100px) {
+            section {
+                padding: 80px 40px;
+            }
+
+            nav {
+                padding: 0 32px;
+            }
+
+            .hero-content {
+                padding: 0 40px;
+            }
+
+            .hero-stats {
+                right: 40px;
+                bottom: 60px;
+            }
+
+            .category-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .why-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .about-inner,
+            .custom-inner,
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 48px;
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            #why,
+            #products,
+            #custom,
+            #portfolio,
+            #about,
+            #contact,
+            footer {
+                padding: 80px 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            section {
+                padding: 60px 24px;
+            }
+
+            #why,
+            #products,
+            #custom,
+            #portfolio,
+            #about,
+            #contact,
+            footer {
+                padding: 60px 24px;
+            }
+
+            .hero-content {
+                padding: 0 24px;
+            }
+
+            .hero-stats {
+                right: 24px;
+                bottom: 40px;
+                gap: 24px;
+            }
+
+            .hero-stat-num {
+                font-size: 28px;
+            }
+
+            .category-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .hero-ctas {
+                flex-direction: column;
+            }
+
+            .btn-primary,
+            .btn-outline {
+                text-align: center;
+            }
+
+            .about-badge-float {
+                right: 0;
+                bottom: -20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav id="navbar">
+        <a href="#" class="nav-logo">
+            <img src="logo.png" alt="Pinessa Logo" class="custom-logo">
+        </a>
+        <ul class="nav-links">
+            <li><a href="#products" data-en="Products" data-id="Produk">Products</a></li>
+            <li><a href="#custom" data-en="Custom Branding" data-id="Custom Branding">Custom Branding</a></li>
+            <li><a href="#portfolio" data-en="Portfolio" data-id="Portofolio">Portfolio</a></li>
+            <li><a href="#why" data-en="Why Pinessa" data-id="Mengapa Pinessa">Why Pinessa</a></li>
+            <li><a href="#about" data-en="About" data-id="Tentang Kami">About</a></li>
+            <li><a href="#contact" data-en="Contact" data-id="Kontak">Contact</a></li>
+        </ul>
+        <div class="nav-right">
+            <div class="lang-toggle">
+                <button class="lang-btn active" onclick="setLang('en')">EN</button>
+                <button class="lang-btn" onclick="setLang('id')">ID</button>
+            </div>
+            <a href="https://wa.me/6282111896017" target="_blank" class="nav-wa" data-en="Enquire Now"
+                data-id="Hubungi Kami">Enquire Now</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section id="hero">
+        <div class="hero-bg-pattern"></div>
+        <div class="hero-grid-lines"></div>
+
+        <div class="hero-content">
+            <div class="hero-top">
+                <div class="hero-badge" data-en="Trusted Since 2007" data-id="Dipercaya Sejak 2007">Trusted Since 2007
+                </div>
+                <h1 class="hero-title"
+                    data-en="High-Quality Hotel Amenities<br>for <span>Exceptional</span><br>Guest Experiences"
+                    data-id="Amenities Hotel Berkualitas<br>untuk Pengalaman Tamu yang <span>Luar Biasa</span>">
+                    Premium Hotel Amenities<br>for <span>Exceptional</span><br>Guest Experiences
+                </h1>
+            </div>
+
+            <div class="hero-product-highlights">
+                <div class="product-highlight-item">
+                    <img src="product-image-1.jpg" alt="Amenities Highlight 1">
+                </div>
+                <div class="product-highlight-item">
+                    <img src="product-image-2.jpg" alt="Amenities Highlight 2">
+                </div>
+                <div class="product-highlight-item">
+                    <img src="product-image-3.jpg" alt="Amenities Highlight 3">
+                </div>
+            </div>
+
+            <div class="hero-bottom">
+                <p class="hero-desc"
+                    data-en="Pinessa supplies complete hotel amenities — from toiletries and towels to in-room dining essentials. Trusted by hotels across Indonesia for over 15 years, with options for fully custom-branded products."
+                    data-id="Pinessa menyediakan perlengkapan hotel lengkap — dari perlengkapan mandi, handuk, hingga kebutuhan makan malam di kamar. Dipercaya oleh hotel-hotel di seluruh Indonesia selama lebih dari 15 tahun, dengan pilihan produk bermerek khusus.">
+                    Pinessa supplies complete hotel amenities — from toiletries and towels to in-room dining essentials.
+                    Trusted by hotels across Indonesia for over 15 years, with options for fully custom-branded
+                    products.
+                </p>
+                <div class="hero-ctas">
+                    <a href="#products" class="btn-primary" data-en="Browse Products" data-id="Lihat Produk">Browse
+                        Products</a>
+                    <a href="#contact" class="btn-outline" data-en="Send Inquiry" data-id="Kirim Pertanyaan">Send
+                        Inquiry</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-stats">
+            <div class="hero-stat">
+                <div class="hero-stat-num">15<span>+</span></div>
+                <div class="hero-stat-label" data-en="Years Operating" data-id="Tahun Beroperasi">Years Operating</div>
+            </div>
+            <div class="hero-divider"></div>
+            <div class="hero-stat">
+                <div class="hero-stat-num">200<span>+</span></div>
+                <div class="hero-stat-label" data-en="Hotel Partners" data-id="Mitra Hotel">Hotel Partners</div>
+            </div>
+            <div class="hero-divider"></div>
+            <div class="hero-stat">
+                <div class="hero-stat-num">50<span>+</span></div>
+                <div class="hero-stat-label" data-en="Product Lines" data-id="Lini Produk">Product Lines</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCTS -->
+    <section id="products">
+        <div class="section-header reveal">
+            <div class="section-eyebrow" data-en="Product Catalog" data-id="Katalog Produk">Product Catalog</div>
+            <h2 class="section-title" data-en="Browse by Category" data-id="Jelajahi Berdasarkan Kategori">Browse by
+                Category</h2>
+            <p class="section-desc"
+                data-en="Select a category to explore our full range of products, specifications, and material options. All items are available with or without custom hotel branding."
+                data-id="Pilih kategori untuk menjelajahi rangkaian produk, spesifikasi, dan pilihan material kami. Semua item tersedia dengan atau tanpa branding hotel khusus.">
+                Select a category to explore our full range of products, specifications, and material options. All items
+                are available with or without custom hotel branding.</p>
+        </div>
+        <div class="category-grid">
+            <div class="category-card reveal" onclick="openCategory('toiletries')">
+                <div class="cat-placeholder" style="background: linear-gradient(135deg,#2a4a6b,#1B3A5C)">
+                    <!-- PHOTO: category cover photo for Toiletries goes here, e.g.
+                         <img src="images/categories/toiletries.jpg" alt="Toiletries" class="cat-photo">
+                         Recommended: 800x600px, replaces the icon SVG below. -->
+                    <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)"
+                        stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M7 3h10v18H7zM7 7h10M12 3V2M9 12h6M9 15h4" />
+                    </svg>
+                </div>
+                <div class="category-overlay"></div>
+                <div class="category-label">
+                    <h3 data-en="Toiletries" data-id="Perlengkapan Mandi">Toiletries</h3>
+                    <p data-en="Soap, shampoo, shower gel, toothbrush, shower cap, and more"
+                        data-id="Sabun, sampo, sabun mandi, sikat gigi, shower cap, dan lainnya">Soap, shampoo, shower
+                        gel, toothbrush, shower cap, and more</p>
+                </div>
+                <div class="category-arrow">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                </div>
+            </div>
+            <div class="category-card reveal reveal-delay-1" onclick="openCategory('amenitykit')">
+                <div class="cat-placeholder" style="background: linear-gradient(135deg,#2a3a5a,#1a2a4a)">
+                    <!-- PHOTO: category cover photo for Amenity Kits goes here, e.g.
+                         <img src="images/categories/amenity-kit.jpg" alt="Amenity Kits" class="cat-photo">
+                         Recommended: 800x600px, replaces the icon SVG below. -->
+                    <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)"
+                        stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="4" y="8" width="16" height="13" rx="2" />
+                        <path d="M8 8V6a4 4 0 0 1 8 0v2M12 13v3M10 15h4" />
+                    </svg>
+                </div>
+                <div class="category-overlay"></div>
+                <div class="category-label">
+                    <h3 data-en="Amenity Kits" data-id="Kit Ameniti">Amenity Kits</h3>
+                    <p data-en="Dental, shaving, vanity, sewing, comb kits, and more"
+                        data-id="Kit gigi, cukur, kecantikan, jahit, sisir, dan lainnya">Dental, shaving, vanity,
+                        sewing, comb kits, and more</p>
+                </div>
+                <div class="category-arrow">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                </div>
+            </div>
+            <div class="category-card reveal reveal-delay-2" onclick="openCategory('towels')">
+                <div class="cat-placeholder" style="background: linear-gradient(135deg,#3a5a3a,#2a4a2a)">
+                    <!-- PHOTO: category cover photo for Towel & Linen goes here, e.g.
+                         <img src="images/categories/towel-linen.jpg" alt="Towel & Linen" class="cat-photo">
+                         Recommended: 800x600px, replaces the icon SVG below. -->
+                    <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)"
+                        stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="6" width="20" height="12" rx="2" />
+                        <path d="M2 10h20M6 6V4M18 6V4" />
+                    </svg>
+                </div>
+                <div class="category-overlay"></div>
+                <div class="category-label">
+                    <h3 data-en="Towel & Linen" data-id="Handuk & Linen">Towel & Linen</h3>
+                    <p data-en="Bath towel, hand towel, bedding, and more"
+                        data-id="Handuk mandi, handuk tangan, sprei, dan lainnya">Bath towel, hand towel, bedding, and
+                        more</p>
+                </div>
+                <div class="category-arrow">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                </div>
+            </div>
+            <div class="category-card reveal reveal-delay-3" onclick="openCategory('slippers')">
+                <div class="cat-placeholder" style="background: linear-gradient(135deg,#4a3a2a,#3a2a1a)">
+                    <!-- PHOTO: category cover photo for Hotel Slippers goes here, e.g.
+                         <img src="images/categories/hotel-slippers.jpg" alt="Hotel Slippers" class="cat-photo">
+                         Recommended: 800x600px, replaces the icon SVG below. -->
+                    <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)"
+                        stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 12c0-4 3-7 9-7 4 0 7 2 9 5l-3 2-4-2-3 3-3-1z" />
+                        <path d="M3 12l2 6h14l2-6" />
+                    </svg>
+                </div>
+                <div class="category-overlay"></div>
+                <div class="category-label">
+                    <h3 data-en="Hotel Slippers" data-id="Sandal Hotel">Hotel Slippers</h3>
+                    <p data-en="Open toe and closed toe, custom finishes"
+                        data-id="Ujung terbuka dan tertutup, finishing khusus">Open toe and closed toe, custom
+                        finishes</p>
+                </div>
+                <div class="category-arrow">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                </div>
+            </div>
+            <div class="category-card reveal" onclick="openCategory('dining')">
+                <div class="cat-placeholder" style="background: linear-gradient(135deg,#4a2a2a,#3a1a1a)">
+                    <!-- PHOTO: category cover photo for Dining Supplies goes here, e.g.
+                         <img src="images/categories/dining-supplies.jpg" alt="Dining Supplies" class="cat-photo">
+                         Recommended: 800x600px, replaces the icon SVG below. -->
+                    <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)"
+                        stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2" />
+                        <path d="M7 2v20M21 15V2l-3 5-3-5v13a3 3 0 0 0 6 0z" />
+                    </svg>
+                </div>
+                <div class="category-overlay"></div>
+                <div class="category-label">
+                    <h3 data-en="Dining Supplies" data-id="Perlengkapan Makan">Dining Supplies</h3>
+                    <p data-en="Sugar & coffee sachets, stirrers, mugs, coasters"
+                        data-id="Sachet gula & kopi, pengaduk, mug, tatakan gelas">Sugar & coffee sachets, stirrers,
+                        mugs, coasters</p>
+                </div>
+                <div class="category-arrow">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                </div>
+            </div>
+            <div class="category-card reveal reveal-delay-1" onclick="openCategory('other')">
+                <div class="cat-placeholder" style="background: linear-gradient(135deg,#2a4a4a,#1a3a3a)">
+                    <!-- PHOTO: category cover photo for Room Accessories goes here, e.g.
+                         <img src="images/categories/room-accessories.jpg" alt="Room Accessories" class="cat-photo">
+                         Recommended: 800x600px, replaces the icon SVG below. -->
+                    <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)"
+                        stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="3" width="20" height="18" rx="2" />
+                        <path d="M8 3v18M2 9h6M2 15h6M14 9h6M14 15h6" />
+                    </svg>
+                </div>
+                <div class="category-overlay"></div>
+                <div class="category-label">
+                    <h3 data-en="Room Accessories" data-id="Aksesori Kamar">Room Accessories</h3>
+                    <p data-en="Laundry bags, hangers, shoe horns, do not disturb"
+                        data-id="Tas laundry, gantungan, pengait sepatu, jangan ganggu">Laundry bags, hangers, shoe
+                        horns, do not disturb</p>
+                </div>
+                <div class="category-arrow">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                </div>
+            </div>
+            <div class="category-card reveal reveal-delay-2" onclick="openCategory('stationary')">
+                <div class="cat-placeholder" style="background: linear-gradient(135deg,#3a4a2a,#2a3a1a)">
+                    <!-- PHOTO: category cover photo for Stationery goes here, e.g.
+                         <img src="images/categories/stationery.jpg" alt="Stationery" class="cat-photo">
+                         Recommended: 800x600px, replaces the icon SVG below. -->
+                    <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)"
+                        stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
+                    </svg>
+                </div>
+                <div class="category-overlay"></div>
+                <div class="category-label">
+                    <h3 data-en="Stationery" data-id="Alat Tulis">Stationery</h3>
+                    <p data-en="Notepads, pens, envelopes, hotel directories"
+                        data-id="Buku catatan, pena, amplop, direktori hotel">Notepads, pens, envelopes, hotel
+                        directories</p>
+                </div>
+                <div class="category-arrow">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                </div>
+            </div>
+            <div class="category-card reveal reveal-delay-3" onclick="openCategory('packaging')">
+                <div class="cat-placeholder" style="background: linear-gradient(135deg,#4a4a2a,#3a3a1a)">
+                    <!-- PHOTO: category cover photo for Packaging & Bags goes here, e.g.
+                         <img src="images/categories/packaging-bags.jpg" alt="Packaging & Bags" class="cat-photo">
+                         Recommended: 800x600px, replaces the icon SVG below. -->
+                    <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)"
+                        stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                            d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                        <path d="M3.27 6.96 12 12.01l8.73-5.05M12 22.08V12" />
+                    </svg>
+                </div>
+                <div class="category-overlay"></div>
+                <div class="category-label">
+                    <h3 data-en="Packaging & Bags" data-id="Kemasan & Tas">Packaging & Bags</h3>
+                    <p data-en="Guest bags, tote bags, key card holders"
+                        data-id="Tas tamu, tote bag, tempat kartu kunci">Guest bags, tote bags, key card holders</p>
+                </div>
+                <div class="category-arrow">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCT PANEL MODAL -->
+    <div class="product-panel" id="productPanel">
+        <div class="panel-inner">
+            <div class="panel-header">
+                <h2 id="panelTitle">Toiletries</h2>
+                <button class="panel-close" onclick="closeCategory()">&#x2715;</button>
+            </div>
+            <div class="panel-body">
+                <p class="panel-category-desc" id="panelDesc"></p>
+                <div class="products-grid" id="productsGrid"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CUSTOM BRANDING -->
+    <section id="custom">
+        <div class="custom-inner">
+            <div>
+                <div class="section-eyebrow" data-en="Custom Branding Service" data-id="Layanan Branding Khusus">Custom
+                    Branding Service</div>
+                <h2 class="section-title light" data-en="Your Logo, Our Quality" data-id="Logo Anda, Kualitas Kami">Your
+                    Logo, Our Quality</h2>
+                <p class="section-desc light"
+                    data-en="Elevate your hotel's identity with fully customized amenities bearing your brand. Every guest touchpoint becomes an expression of your property's character."
+                    data-id="Tingkatkan identitas hotel Anda dengan perlengkapan yang sepenuhnya dikustomisasi dengan merek Anda. Setiap titik kontak tamu menjadi ekspresi karakter properti Anda.">
+                    Elevate your hotel's identity with fully customized amenities bearing your brand. Every guest
+                    touchpoint becomes an expression of your property's character.</p>
+                <div class="custom-feature-list">
+                    <div class="custom-feature">
+                        <div class="custom-feature-dot"></div>
+                        <p data-en="<strong>Embroidered & printed towels</strong> — your hotel name or crest woven or printed in any thread color."
+                            data-id="<strong>Handuk bordir & cetak</strong> — nama hotel atau lambang Anda ditenun atau dicetak dalam warna benang apa pun.">
+                            <strong>Embroidered & printed towels</strong> — your hotel name or crest woven or printed in
+                            any thread color.
+                        </p>
+                    </div>
+                    <div class="custom-feature">
+                        <div class="custom-feature-dot"></div>
+                        <p data-en="<strong>Branded toiletry bottles</strong> — label design service available, minimum order quantities discussed directly."
+                            data-id="<strong>Botol perlengkapan mandi bermerek</strong> — layanan desain label tersedia, jumlah pesanan minimum dibahas langsung.">
+                            <strong>Branded toiletry bottles</strong> — label design service available, minimum order
+                            quantities discussed directly.
+                        </p>
+                    </div>
+                    <div class="custom-feature">
+                        <div class="custom-feature-dot"></div>
+                        <p data-en="<strong>Custom-printed stationery & packaging</strong> — notepads, envelopes, bags with your logo and hotel color palette."
+                            data-id="<strong>Alat tulis & kemasan cetak khusus</strong> — buku catatan, amplop, tas dengan logo dan palet warna hotel Anda.">
+                            <strong>Custom-printed stationery & packaging</strong> — notepads, envelopes, bags with your
+                            logo and hotel color palette.
+                        </p>
+                    </div>
+                    <div class="custom-feature">
+                        <div class="custom-feature-dot"></div>
+                        <p data-en="<strong>Slipper sole branding</strong> — logo-embossed EVA or foam soles for in-room slippers."
+                            data-id="<strong>Branding sol sandal</strong> — sol EVA atau busa berlogo untuk sandal kamar.">
+                            <strong>Slipper sole branding</strong> — logo-embossed EVA or foam soles for in-room
+                            slippers.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="custom-visual reveal">
+                <div class="custom-visual-card">
+                    <h4 data-en="Available For" data-id="Tersedia Untuk">Available For</h4>
+                    <p data-en="All product categories — toiletries, linens, dining, stationery, packaging"
+                        data-id="Semua kategori produk — perlengkapan mandi, linen, makan, alat tulis, kemasan">All
+                        product categories — toiletries, linens, dining, stationery, packaging</p>
+                </div>
+                <div class="custom-visual-card">
+                    <h4 data-en="Print Methods" data-id="Metode Cetak">Print Methods</h4>
+                    <p data-en="Screen print, digital print, embroidery, emboss, deboss"
+                        data-id="Cetak sablon, cetak digital, bordir, emboss, deboss">Screen print, digital print,
+                        embroidery, emboss, deboss</p>
+                </div>
+                <div class="custom-visual-card">
+                    <h4 data-en="Lead Time" data-id="Waktu Pengiriman">Lead Time</h4>
+                    <p data-en="Production & delivery discussed per order via WhatsApp"
+                        data-id="Produksi & pengiriman dibahas per pesanan via WhatsApp">Production & delivery discussed
+                        per order via WhatsApp</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section id="portfolio">
+        <div class="section-header reveal">
+            <div class="section-eyebrow" data-en="Our Portfolio" data-id="Portofolio Kami">Our Portfolio</div>
+            <h2 class="section-title" data-en="Hotels That Trust Pinessa" data-id="Hotel yang Mempercayai Pinessa">
+                Hotels That Trust Pinessa</h2>
+            <p class="section-desc"
+                data-en="A selection of Indonesian hotel properties that have chosen Pinessa as their preferred amenities supplier. Each represents our commitment to quality in practice."
+                data-id="Pilihan properti hotel di Indonesia yang telah memilih Pinessa sebagai pemasok perlengkapan pilihan mereka. Masing-masing mewakili komitmen kami terhadap kualitas dalam praktiknya.">
+                A selection of Indonesian hotel properties that have chosen Pinessa as their preferred amenities
+                supplier. Each represents our commitment to quality in practice.</p>
+        </div>
+        <div class="portfolio-grid reveal">
+            <div class="portfolio-item">
+                <div class="portfolio-item-placeholder">
+                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="rgba(27,58,92,0.3)"
+                        stroke-width="1.5" stroke-linecap="round">
+                        <rect x="3" y="3" width="18" height="18" rx="2" />
+                        <path d="M3 9h18M9 21V9" />
+                    </svg>
+                    <span data-en="Hotel Photo" data-id="Foto Hotel">Hotel Photo</span>
+                </div>
+                <div class="portfolio-item-label"><span>The Westin</span></div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-item-placeholder">
+                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="rgba(27,58,92,0.3)"
+                        stroke-width="1.5" stroke-linecap="round">
+                        <rect x="3" y="3" width="18" height="18" rx="2" />
+                        <path d="M3 9h18M9 21V9" />
+                    </svg>
+                    <span data-en="Hotel Photo" data-id="Foto Hotel">Hotel Photo</span>
+                </div>
+                <div class="portfolio-item-label"><span>Four Points</span></div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-item-placeholder">
+                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="rgba(27,58,92,0.3)"
+                        stroke-width="1.5" stroke-linecap="round">
+                        <rect x="3" y="3" width="18" height="18" rx="2" />
+                        <path d="M3 9h18M9 21V9" />
+                    </svg>
+                    <span data-en="Hotel Photo" data-id="Foto Hotel">Hotel Photo</span>
+                </div>
+                <div class="portfolio-item-label"><span>HARRIS Hotel</span></div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-item-placeholder">
+                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="rgba(27,58,92,0.3)"
+                        stroke-width="1.5" stroke-linecap="round">
+                        <rect x="3" y="3" width="18" height="18" rx="2" />
+                        <path d="M3 9h18M9 21V9" />
+                    </svg>
+                    <span data-en="Hotel Photo" data-id="Foto Hotel">Hotel Photo</span>
+                </div>
+                <div class="portfolio-item-label"><span>Ibis Hotels</span></div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-item-placeholder">
+                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="rgba(27,58,92,0.3)"
+                        stroke-width="1.5" stroke-linecap="round">
+                        <rect x="3" y="3" width="18" height="18" rx="2" />
+                        <path d="M3 9h18M9 21V9" />
+                    </svg>
+                    <span data-en="Hotel Photo" data-id="Foto Hotel">Hotel Photo</span>
+                </div>
+                <div class="portfolio-item-label"><span>Novotel</span></div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-item-placeholder">
+                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="rgba(27,58,92,0.3)"
+                        stroke-width="1.5" stroke-linecap="round">
+                        <rect x="3" y="3" width="18" height="18" rx="2" />
+                        <path d="M3 9h18M9 21V9" />
+                    </svg>
+                    <span data-en="Hotel Photo" data-id="Foto Hotel">Hotel Photo</span>
+                </div>
+                <div class="portfolio-item-label"><span>Pullman Hotels</span></div>
+            </div>
+        </div>
+
+        <!-- Client Logos -->
+        <div class="client-logos reveal">
+            <div class="client-logos-title" data-en="Trusted by Hotels Across Indonesia"
+                data-id="Dipercaya Hotel-Hotel di Seluruh Indonesia">Trusted by Hotels Across Indonesia</div>
+            <div class="client-logos-grid">
+                <div class="client-logo-item">The Sankara Resort</div>
+                <div class="client-logo-item">Best Western</div>
+                <div class="client-logo-item">Villa So long</div>
+                <div class="client-logo-item">The Layar Seminyak</div>
+                <div class="client-logo-item">Ketapang Indah Hotel</div>
+                <div class="client-logo-item">Java Paragon Hotel</div>
+                <div class="client-logo-item">Hotel Bumi</div>
+                <div class="client-logo-item">Aston Hotels</div>
+                <div class="client-logo-item">AriaHotel</div>
+                <div class="client-logo-item">Swiss-Belhotel</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHY PINESSA -->
+    <section id="why">
+        <div class="section-header reveal">
+            <div class="section-eyebrow" data-en="Why Choose Us" data-id="Mengapa Memilih Kami">Why Choose Us</div>
+            <h2 class="section-title" data-en="The Standard Hotels Trust" data-id="Standar yang Dipercaya Hotel">The
+                Standard Hotels Trust</h2>
+            <p class="section-desc"
+                data-en="From independent boutique stays to large resort groups, Pinessa has built its reputation on consistency, material quality, and service reliability since 2007."
+                data-id="Dari penginapan butik independen hingga grup resort besar, Pinessa telah membangun reputasinya atas konsistensi, kualitas material, dan keandalan layanan sejak 2007.">
+                From independent boutique stays to large resort groups, Pinessa has built its reputation on consistency,
+                material quality, and service reliability since 2007.</p>
+        </div>
+        <div class="why-grid">
+            <div class="why-card reveal">
+                <div class="why-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 2L3 7l9 5 9-5-9-5zM3 17l9 5 9-5M3 12l9 5 9-5" />
+                    </svg>
+                </div>
+                <div class="why-accent-line"></div>
+                <h3 data-en="Complete Range" data-id="Rangkaian Lengkap">Complete Range</h3>
+                <p data-en="Every amenity your hotel needs — toiletries, linens, dining accessories, and more — sourced from one trusted supplier."
+                    data-id="Setiap perlengkapan yang dibutuhkan hotel Anda — perlengkapan mandi, linen, aksesori makan, dan banyak lagi — dari satu pemasok terpercaya.">
+                    Every amenity your hotel needs — toiletries, linens, dining accessories, and more — sourced from one
+                    trusted supplier.</p>
+            </div>
+            <div class="why-card reveal reveal-delay-1">
+                <div class="why-icon">
+                    <svg viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M9 12l2 2 4-4" />
+                    </svg>
+                </div>
+                <div class="why-accent-line"></div>
+                <h3 data-en="Verified Quality" data-id="Kualitas Terverifikasi">Verified Quality</h3>
+                <p data-en="Strict quality standards on all materials — cotton grammage, fragrance formulation, food-grade certifications — before any product reaches your property."
+                    data-id="Standar kualitas ketat pada semua material — gramasi katun, formulasi wewangian, sertifikasi food-grade — sebelum produk sampai ke properti Anda.">
+                    Strict quality standards on all materials — cotton grammage, fragrance formulation, food-grade
+                    certifications — before any product reaches your property.</p>
+            </div>
+            <div class="why-card reveal reveal-delay-2">
+                <div class="why-icon">
+                    <svg viewBox="0 0 24 24">
+                        <rect x="3" y="3" width="7" height="7" />
+                        <rect x="14" y="3" width="7" height="7" />
+                        <rect x="3" y="14" width="7" height="7" />
+                        <path d="M14 17h7M17 14v7" />
+                    </svg>
+                </div>
+                <div class="why-accent-line"></div>
+                <h3 data-en="Custom Branding" data-id="Branding Khusus">Custom Branding</h3>
+                <p data-en="Products can carry your hotel's logo and identity. From embroidered towels to printed toiletry packaging — your brand, your way."
+                    data-id="Produk dapat membawa logo dan identitas hotel Anda. Dari handuk bordir hingga kemasan perlengkapan mandi bercetak — merek Anda, cara Anda.">
+                    Products can carry your hotel's logo and identity. From embroidered towels to printed toiletry
+                    packaging — your brand, your way.</p>
+            </div>
+            <div class="why-card reveal reveal-delay-3">
+                <div class="why-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                        <circle cx="9" cy="7" r="4" />
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                    </svg>
+                </div>
+                <div class="why-accent-line"></div>
+                <h3 data-en="Dedicated Service" data-id="Layanan Berdedikasi">Dedicated Service</h3>
+                <p data-en="Direct communication with our team for every order. No intermediaries, no delayed responses — just straightforward hospitality supply."
+                    data-id="Komunikasi langsung dengan tim kami untuk setiap pesanan. Tidak ada perantara, tidak ada respons tertunda — hanya pasokan perhotelan yang mudah.">
+                    Direct communication with our team for every order. No intermediaries, no delayed responses — just
+                    straightforward hospitality supply.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+        <div class="about-inner">
+            <div class="about-visual reveal">
+                <div class="about-img-main">
+                    <div class="about-img-placeholder">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.2)"
+                            stroke-width="1.2" stroke-linecap="round">
+                            <rect x="3" y="3" width="18" height="18" rx="2" />
+                            <path d="M3 9h18M9 21V9" />
+                        </svg>
+                        <span data-en="Company Image" data-id="Gambar Perusahaan">Company Image</span>
+                    </div>
+                </div>
+                <div class="about-badge-float">
+                    <div class="num">2007</div>
+                    <div class="lbl" data-en="Est. Surabaya" data-id="Berdiri di Surabaya">Est. Surabaya</div>
+                </div>
+            </div>
+            <div class="about-content reveal reveal-delay-1">
+                <div class="section-eyebrow" data-en="About Pinessa" data-id="Tentang Pinessa">About Pinessa</div>
+                <h2 class="section-title" data-en="Supplying Excellence to Indonesian Hospitality"
+                    data-id="Memasok Keunggulan untuk Perhotelan Indonesia">Supplying Excellence to Indonesian
+                    Hospitality</h2>
+                <p class="about-text"
+                    data-en="Pinessa was founded in 2007 with a straightforward goal: to give Indonesian hotels access to hotel-grade amenities that match international standards — at supply prices that make business sense."
+                    data-id="Pinessa didirikan pada tahun 2007 dengan tujuan sederhana: memberi hotel-hotel Indonesia akses ke perlengkapan hotel berstandar internasional — dengan harga pasokan yang masuk akal secara bisnis.">
+                    Pinessa was founded in 2007 with a straightforward goal: to give Indonesian hotels access to
+                    hotel-grade amenities that match international standards — at supply prices that make business
+                    sense.</p>
+                <p class="about-text"
+                    data-en="Over more than 15 years, we have grown from a small regional supplier into a trusted name across Java, Bali, Sumatra, and beyond. Our team understands the demands of hotel operations — consistency, reliability, and the importance of every detail a guest encounters."
+                    data-id="Selama lebih dari 15 tahun, kami telah berkembang dari pemasok regional kecil menjadi nama terpercaya di seluruh Jawa, Bali, Sumatera, dan sekitarnya. Tim kami memahami tuntutan operasi hotel — konsistensi, keandalan, dan pentingnya setiap detail yang ditemui tamu.">
+                    Over more than 15 years, we have grown from a small regional supplier into a trusted name across
+                    Java, Bali, Sumatra, and beyond. Our team understands the demands of hotel operations — consistency,
+                    reliability, and the importance of every detail a guest encounters.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+        <div class="section-header reveal">
+            <div class="section-eyebrow" data-en="Get in Touch" data-id="Hubungi Kami">Get in Touch</div>
+            <h2 class="section-title light" data-en="Contact Pinessa" data-id="Kontak Pinessa">Contact Pinessa</h2>
+            <p class="section-desc light"
+                data-en="Reach out to discuss your hotel's amenity needs. Our team responds to every inquiry with detailed product information and samples where applicable."
+                data-id="Hubungi kami untuk mendiskusikan kebutuhan perlengkapan hotel Anda. Tim kami merespons setiap pertanyaan dengan informasi produk terperinci dan sampel bila berlaku.">
+                Reach out to discuss your hotel's amenity needs. Our team responds to every inquiry with detailed
+                product information and samples where applicable.</p>
+        </div>
+        <div class="contact-grid">
+            <div class="contact-info reveal">
+                <h3 data-en="Contact Details" data-id="Detail Kontak">Contact Details</h3>
+                <div class="contact-item">
+                    <div class="contact-item-label" data-en="WhatsApp Business" data-id="WhatsApp Bisnis">WhatsApp
+                        Business</div>
+                    <div class="contact-item-value"><a href="https://wa.me/6282111896017" target="_blank">+62
+                            821-1189-6017</a></div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-item-label" data-en="Email" data-id="Surel">Email</div>
+                    <div class="contact-item-value"><a href="mailto:pinessa.marketing@gmail.com">pinessa.marketing@gmail.com</a></div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-item-label" data-en="Office Address" data-id="Alamat Kantor">Office Address
+                    </div>
+                    <div class="contact-item-value"
+                        data-en="Jl. Tampak Siring D2-3<br>Surabaya, 60294<br>East Java, Indonesia"
+                        data-id="Jl. Tampak Siring D2-3<br>Surabaya, 60294<br>Jawa Timur, Indonesia">Jl. Tampak Siring
+                        D2-3<br>Surabaya, 60294<br>East Java, Indonesia</div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-item-label" data-en="Business Hours" data-id="Jam Kerja">Business Hours</div>
+                    <div class="contact-item-value" data-en="Monday – Friday, 08:00 – 17:00 WIB"
+                        data-id="Senin – Jumat, 08.00 – 17.00 WIB">Monday – Friday, 08:00 – 17:00 WIB</div>
+                </div>
+                <a href="https://wa.me/6282111896017" target="_blank" class="wa-btn-large">
+                    <svg class="wa-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" />
+                    </svg>
+                    <span data-en="Chat on WhatsApp" data-id="Chat di WhatsApp">Chat on WhatsApp</span>
+                </a>
+            </div>
+
+            <div class="contact-form reveal reveal-delay-1">
+                <h3 data-en="Send an Inquiry" data-id="Kirim Pertanyaan">Send an Inquiry</h3>
+                <p class="form-subtitle"
+                    data-en="Fill in your details and we will get back to you with product information tailored to your needs."
+                    data-id="Isi detail Anda dan kami akan menghubungi Anda kembali dengan informasi produk yang disesuaikan dengan kebutuhan Anda.">
+                    Fill in your details and we will get back to you with product information tailored to your needs.
+                </p>
+                <div id="formWrap">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label data-en="First Name" data-id="Nama Depan">First Name</label>
+                            <input type="text" id="firstName" placeholder="e.g. Budi">
+                        </div>
+                        <div class="form-group">
+                            <label data-en="Last Name" data-id="Nama Belakang">Last Name</label>
+                            <input type="text" id="lastName" placeholder="e.g. Santoso">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label data-en="Hotel / Company Name" data-id="Nama Hotel / Perusahaan">Hotel / Company
+                            Name</label>
+                        <input type="text" id="company" placeholder="e.g. Grand Sari Hotel">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label data-en="Email Address" data-id="Alamat Surel">Email Address</label>
+                            <input type="email" id="email" placeholder="name@hotel.com">
+                        </div>
+                        <div class="form-group">
+                            <label data-en="Phone / WhatsApp" data-id="Telepon / WhatsApp">Phone / WhatsApp</label>
+                            <input type="tel" id="phone" placeholder="+62 ...">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label data-en="Product Category of Interest" data-id="Kategori Produk yang Diminati">Product
+                            Category of Interest</label>
+                        <select id="category">
+                            <option value="" data-en="-- Select a category --" data-id="-- Pilih kategori --">-- Select
+                                a category --</option>
+                            <option value="toiletries" data-en="Toiletries" data-id="Perlengkapan Mandi">Toiletries
+                            </option>
+                            <option value="towels" data-en="Towels & Linens" data-id="Handuk & Linen">Towels & Linens
+                            </option>
+                            <option value="slippers" data-en="Slippers" data-id="Sandal Hotel">Slippers</option>
+                            <option value="amenitykit" data-en="Amenity Kits" data-id="Kit Ameniti">Amenity Kits
+                            </option>
+                            <option value="dining" data-en="Dining Supplies" data-id="Perlengkapan Makan">Dining
+                                Supplies</option>
+                            <option value="room" data-en="Room Accessories" data-id="Aksesori Kamar">Room Accessories
+                            </option>
+                            <option value="stationery" data-en="Stationery" data-id="Alat Tulis">Stationery</option>
+                            <option value="custom" data-en="Custom Branding" data-id="Branding Khusus">Custom Branding
+                            </option>
+                            <option value="multiple" data-en="Multiple Categories" data-id="Beberapa Kategori">Multiple
+                                Categories</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label data-en="Message / Requirements" data-id="Pesan / Kebutuhan">Message /
+                            Requirements</label>
+                        <textarea id="message"
+                            placeholder="Describe your hotel's needs, estimated quantities, or any specific requirements..."></textarea>
+                    </div>
+                    <button class="form-submit" onclick="submitForm()" data-en="Send Inquiry"
+                        data-id="Kirim Pertanyaan">Send Inquiry</button>
+                    <p class="form-note"
+                        data-en="Your inquiry will be sent to our team. We typically respond within 1 business day."
+                        data-id="Pertanyaan Anda akan dikirim ke tim kami. Kami biasanya merespons dalam 1 hari kerja.">
+                        Your inquiry will be sent to our team. We typically respond within 1 business day.</p>
+                </div>
+                <div class="form-success" id="formSuccess">
+                    <h4 data-en="Inquiry Sent" data-id="Pertanyaan Terkirim">Inquiry Sent</h4>
+                    <p data-en="Thank you. Your message has been received. A member of our team will reach out to you shortly with the information you need."
+                        data-id="Terima kasih. Pesan Anda telah diterima. Anggota tim kami akan segera menghubungi Anda dengan informasi yang Anda butuhkan.">
+                        Thank you. Your message has been received. A member of our team will reach out to you shortly
+                        with the information you need.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-top">
+            <div class="footer-brand">
+                <!-- LOGO: Replace with your logo file once uploaded, e.g. <img src="logo.png" alt="Pinessa Logo" class="footer-logo"> -->
+                <img src="logo_dark.png" alt="Pinessa Logo" class="footer-logo">
+                <p class="footer-tagline"
+                    data-en="Complete hotel amenities supplier, trusted by Indonesian hospitality since 2007. Quality products, reliable service, custom branding available."
+                    data-id="Pemasok perlengkapan hotel lengkap, dipercaya perhotelan Indonesia sejak 2007. Produk berkualitas, layanan andal, branding khusus tersedia.">
+                    Complete hotel amenities supplier, trusted by Indonesian hospitality since 2007. Quality products,
+                    reliable service, custom branding available.</p>
+            </div>
+            <div class="footer-col">
+                <h4 data-en="Navigation" data-id="Navigasi">Navigation</h4>
+                <ul>
+                    <li><a href="#why" data-en="Why Pinessa" data-id="Mengapa Pinessa">Why Pinessa</a></li>
+                    <li><a href="#products" data-en="Products" data-id="Produk">Products</a></li>
+                    <li><a href="#custom" data-en="Custom Branding" data-id="Branding Khusus">Custom Branding</a></li>
+                    <li><a href="#portfolio" data-en="Portfolio" data-id="Portofolio">Portfolio</a></li>
+                    <li><a href="#about" data-en="About" data-id="Tentang Kami">About</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 data-en="Products" data-id="Produk">Products</h4>
+                <ul>
+                    <li><a href="#" onclick="openCategory('toiletries')" data-en="Toiletries"
+                            data-id="Perlengkapan Mandi">Toiletries</a></li>
+                    <li><a href="#" onclick="openCategory('amenitykit')" data-en="Amenity Kits"
+                            data-id="Kit Ameniti">Amenity Kits</a></li>
+                    <li><a href="#" onclick="openCategory('towels')" data-en="Towel & Linen"
+                            data-id="Handuk & Linen">Towel & Linen</a></li>
+                    <li><a href="#" onclick="openCategory('slippers')" data-en="Hotel Slippers"
+                            data-id="Sandal Hotel">Hotel Slippers</a></li>
+                    <li><a href="#" onclick="openCategory('dining')" data-en="Dining Supplies"
+                            data-id="Perlengkapan Makan">Dining Supplies</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 data-en="Contact" data-id="Kontak">Contact</h4>
+                <ul>
+                    <li><a href="https://wa.me/6282111896017" target="_blank">WhatsApp Business</a></li>
+                    <li><a href="mailto:pinessa.marketing@gmail.com">pinessa.marketing@gmail.com</a></li>
+                    <li><a href="#contact" data-en="Send Inquiry" data-id="Kirim Pertanyaan">Send Inquiry</a></li>
+                    <li><a href="#contact" data-en="Surabaya Office" data-id="Kantor Surabaya">Surabaya Office</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span class="footer-copy"
+                data-en="© 2024 Pinessa. All rights reserved. Hotel Amenities Supplier — Indonesia."
+                data-id="© 2024 Pinessa. Hak cipta dilindungi. Pemasok Perlengkapan Hotel — Indonesia.">© 2024 Pinessa.
+                All rights reserved. Hotel Amenities Supplier — Indonesia.</span>
+            <div class="footer-lang">
+                <a href="#" onclick="setLang('en')">EN</a>
+                <span style="color:rgba(255,255,255,0.15)">|</span>
+                <a href="#" onclick="setLang('id')">ID</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ===== LANGUAGE SYSTEM =====
+        let currentLang = 'id';
+
+        function setLang(lang) {
+            currentLang = lang;
+
+            // Update all lang-btn states
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.textContent.trim() === lang.toUpperCase());
+            });
+
+            // Update all elements with data-en / data-id
+            document.querySelectorAll('[data-en]').forEach(el => {
+                const val = el.getAttribute('data-' + lang);
+                if (val !== null) {
+                    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                        el.placeholder = val;
+                    } else if (el.tagName === 'OPTION') {
+                        el.textContent = val;
+                    } else {
+                        el.innerHTML = val;
+                    }
+                }
+            });
+        }
+
+        // ===== PRODUCT DATA =====
+        const categories = {
+            toiletries: {
+                en: { title: 'Toiletries', desc: 'Soap, shampoo, conditioner, shower gel, body lotion, toothbrush, toothpaste, shower cap, and more — every guest bathroom essential. Available in standard and premium formulations, individually wrapped or in amenity sets, with or without custom branding.' },
+                id: { title: 'Perlengkapan Mandi', desc: 'Sabun, sampo, kondisioner, shower gel, losion tubuh, sikat gigi, pasta gigi, shower cap, dan lainnya — setiap kebutuhan kamar mandi tamu. Tersedia dalam formulasi standar dan premium, dibungkus individual atau dalam set ameniti, dengan atau tanpa branding khusus.' },
+                products: [
+                    { en: { name: 'Soap', desc: 'Available in round, square, or transparent bar formats, sold loose or box-packaged. Custom weight and sticker logo branding available.', tags: ['Round / Square / Transparent', 'Box Packaged', 'Sticker Logo'] }, id: { name: 'Sabun', desc: 'Tersedia dalam bentuk batang bulat, kotak, atau transparan, dijual lepas atau dikemas kotak. Berat khusus dan branding stiker logo tersedia.', tags: ['Bulat / Kotak / Transparan', 'Kemasan Kotak', 'Stiker Logo'] } },
+                    { en: { name: 'Shampoo', desc: 'Available in fliptop, screw-cap, or soft tube bottle formats across multiple volume sizes. Logo printing available on request.', tags: ['Fliptop / Screw / Soft Tube', 'Multiple ml Sizes', 'Logo Print'] }, id: { name: 'Sampo', desc: 'Tersedia dalam botol fliptop, ulir, atau soft tube dalam berbagai ukuran volume. Cetak logo tersedia sesuai permintaan.', tags: ['Fliptop / Ulir / Soft Tube', 'Berbagai Ukuran ml', 'Cetak Logo'] } },
+                    { en: { name: 'Conditioner', desc: 'Available in fliptop, screw-cap, or soft tube bottle formats across multiple volume sizes. Logo printing available on request.', tags: ['Fliptop / Screw / Soft Tube', 'Multiple ml Sizes', 'Logo Print'] }, id: { name: 'Conditioner', desc: 'Tersedia dalam botol fliptop, ulir, atau soft tube dalam berbagai ukuran volume. Cetak logo tersedia sesuai permintaan.', tags: ['Fliptop / Ulir / Soft Tube', 'Berbagai Ukuran ml', 'Cetak Logo'] } },
+                    { en: { name: 'Shower Gel', desc: 'Available in fliptop, screw-cap, or soft tube bottle formats across multiple volume sizes. Logo printing available on request.', tags: ['Fliptop / Screw / Soft Tube', 'Multiple ml Sizes', 'Logo Print'] }, id: { name: 'Shower Gel', desc: 'Tersedia dalam botol fliptop, ulir, atau soft tube dalam berbagai ukuran volume. Cetak logo tersedia sesuai permintaan.', tags: ['Fliptop / Ulir / Soft Tube', 'Berbagai Ukuran ml', 'Cetak Logo'] } },
+                    { en: { name: 'Body Lotion', desc: 'Available in fliptop, screw-cap, or soft tube bottle formats across multiple volume sizes. Logo printing available on request.', tags: ['Fliptop / Screw / Soft Tube', 'Multiple ml Sizes', 'Logo Print'] }, id: { name: 'Losion Tubuh', desc: 'Tersedia dalam botol fliptop, ulir, atau soft tube dalam berbagai ukuran volume. Cetak logo tersedia sesuai permintaan.', tags: ['Fliptop / Ulir / Soft Tube', 'Berbagai Ukuran ml', 'Cetak Logo'] } },
+                    { en: { name: 'Toothbrush', desc: 'Available in standard, transparent, or bamboo handles, with custom color or custom logo options.', tags: ['Standard / Transparent / Bamboo', 'Custom Color', 'Custom Logo'] }, id: { name: 'Sikat Gigi', desc: 'Tersedia dengan gagang standar, transparan, atau bambu, dengan pilihan warna khusus atau logo khusus.', tags: ['Standar / Transparan / Bambu', 'Warna Khusus', 'Logo Khusus'] } },
+                    { en: { name: 'Toothpaste', desc: 'Available in several formulations — Delident 5gr, Nature Mint 6gr, Cool Up 5gr, Nature Dent 5gr — plus a Formula range in 5gr or 8gr.', tags: ['5gr – 8gr', 'Multiple Formulas', 'Sachet Tube'] }, id: { name: 'Pasta Gigi', desc: 'Tersedia dalam beberapa formula — Delident 5gr, Nature Mint 6gr, Cool Up 5gr, Nature Dent 5gr — serta varian Formula dalam 5gr atau 8gr.', tags: ['5gr – 8gr', 'Berbagai Formula', 'Tube Sachet'] } },
+                    { en: { name: 'Shower Cap', desc: 'Individually packaged in box or plastic format, with or without logo printing.', tags: ['Box / Plastic Packaged', 'Logo / Non Logo'] }, id: { name: 'Shower Cap', desc: 'Dikemas individual dalam format kotak atau plastik, dengan atau tanpa cetak logo.', tags: ['Kemasan Kotak / Plastik', 'Logo / Non Logo'] } },
+                    { en: { name: 'Cotton Bud', desc: 'Individually packaged in box or plastic format, with or without logo printing.', tags: ['Box / Plastic Packaged', 'Logo / Non Logo'] }, id: { name: 'Cotton Bud', desc: 'Dikemas individual dalam format kotak atau plastik, dengan atau tanpa cetak logo.', tags: ['Kemasan Kotak / Plastik', 'Logo / Non Logo'] } },
+                    { en: { name: 'Cotton Pad', desc: 'Available in round or square shapes, packaged in box or plastic, with or without logo printing.', tags: ['Round / Square', 'Box / Plastic Packaged', 'Logo / Non Logo'] }, id: { name: 'Cotton Pad', desc: 'Tersedia dalam bentuk bulat atau kotak, dikemas dalam kotak atau plastik, dengan atau tanpa cetak logo.', tags: ['Bulat / Kotak', 'Kemasan Kotak / Plastik', 'Logo / Non Logo'] } },
+                    { en: { name: 'Razor', desc: 'Single-use hotel razor, sold individually or bundled as part of our shaving kits.', tags: ['Single Use', 'Also in Shaving Kits'] }, id: { name: 'Razor', desc: 'Pisau cukur hotel sekali pakai, dijual individual atau digabung sebagai bagian dari kit cukur kami.', tags: ['Sekali Pakai', 'Juga di Kit Cukur'] } },
+                    { en: { name: 'Shaving Cream', desc: 'Available in multiple volume sizes, sold individually or bundled as part of our shaving kits.', tags: ['Multiple ml Sizes', 'Also in Shaving Kits'] }, id: { name: 'Shaving Cream', desc: 'Tersedia dalam berbagai ukuran volume, dijual individual atau digabung sebagai bagian dari kit cukur kami.', tags: ['Berbagai Ukuran ml', 'Juga di Kit Cukur'] } },
+                    { en: { name: 'Comb', desc: 'Available with or without handle, in standard plastic or bamboo, with custom color or logo. Packaged in box or plastic.', tags: ['Handle / Non Handle', 'Bamboo Option', 'Custom Color / Logo'] }, id: { name: 'Sisir', desc: 'Tersedia dengan atau tanpa gagang, dalam plastik standar atau bambu, dengan warna atau logo khusus. Dikemas kotak atau plastik.', tags: ['Gagang / Non Gagang', 'Pilihan Bambu', 'Warna / Logo Khusus'] } },
+                    { en: { name: 'Nail File', desc: 'Compact emery nail file, sold individually or bundled as part of our vanity kits.', tags: ['Compact Size', 'Also in Vanity Kits'] }, id: { name: 'Pengikir Kuku', desc: 'Pengikir kuku emery kompak, dijual individual atau digabung sebagai bagian dari kit kecantikan kami.', tags: ['Ukuran Kompak', 'Juga di Kit Kecantikan'] } },
+                ]
+            },
+            amenitykit: {
+                en: { title: 'Amenity Kits', desc: 'Dental, shaving, vanity, sewing, comb, and more — individually packaged amenity kits for in-room placement. Each kit can be assembled with standard or custom contents, packaged in plastic, doff plastic, box, or fully custom packaging.' },
+                id: { title: 'Kit Ameniti', desc: 'Kit gigi, cukur, kecantikan, jahit, sisir, dan lainnya — kit ameniti yang dikemas individual untuk penempatan di kamar. Setiap kit dapat dirakit dengan konten standar atau khusus, dikemas dalam plastik, plastik doff, kotak, atau kemasan khusus.' },
+                products: [
+                    { en: { name: 'Dental Kit', desc: 'Toothbrush and toothpaste bundled together, packaged in plastic or box format, with or without logo.', tags: ['Toothbrush + Toothpaste', 'Plastic / Box Packaged', 'Logo / Non Logo'] }, id: { name: 'Kit Gigi', desc: 'Sikat gigi dan pasta gigi digabung bersama, dikemas dalam format plastik atau kotak, dengan atau tanpa logo.', tags: ['Sikat + Pasta Gigi', 'Kemasan Plastik / Kotak', 'Logo / Non Logo'] } },
+                    { en: { name: 'Shaving Kit', desc: 'Razor and shaving cream bundled together, packaged in plastic or box format, with or without logo.', tags: ['Razor + Shaving Cream', 'Plastic / Box Packaged', 'Logo / Non Logo'] }, id: { name: 'Kit Cukur', desc: 'Pisau cukur dan shaving cream digabung bersama, dikemas dalam format plastik atau kotak, dengan atau tanpa logo.', tags: ['Pisau Cukur + Krim', 'Kemasan Plastik / Kotak', 'Logo / Non Logo'] } },
+                    { en: { name: 'Vanity Kit', desc: 'Nail file, cotton pad, and cotton bud bundled together, packaged in plastic or box format, with or without logo.', tags: ['Nail File + Cotton Pad + Bud', 'Plastic / Box Packaged', 'Logo / Non Logo'] }, id: { name: 'Kit Kecantikan', desc: 'Pengikir kuku, cotton pad, dan cotton bud digabung bersama, dikemas dalam format plastik atau kotak, dengan atau tanpa logo.', tags: ['Kikir + Cotton Pad + Bud', 'Kemasan Plastik / Kotak', 'Logo / Non Logo'] } },
+                    { en: { name: 'Sewing Kit', desc: 'Needle, thread, and safety pin bundled together, packaged in plastic or box format, with or without logo.', tags: ['Needle + Thread + Safety Pin', 'Plastic / Box Packaged', 'Logo / Non Logo'] }, id: { name: 'Kit Jahit', desc: 'Jarum, benang, dan peniti digabung bersama, dikemas dalam format plastik atau kotak, dengan atau tanpa logo.', tags: ['Jarum + Benang + Peniti', 'Kemasan Plastik / Kotak', 'Logo / Non Logo'] } },
+                    { en: { name: 'Comb Kit', desc: 'Individually packaged comb, in plastic or box format, with or without logo.', tags: ['Comb', 'Plastic / Box Packaged', 'Logo / Non Logo'] }, id: { name: 'Kit Sisir', desc: 'Sisir dikemas individual, dalam format plastik atau kotak, dengan atau tanpa logo.', tags: ['Sisir', 'Kemasan Plastik / Kotak', 'Logo / Non Logo'] } },
+                    { en: { name: 'Sanitary Bag', desc: 'Individually packaged sanitary bag, in plastic or box format, with or without logo.', tags: ['Sanitary Bag', 'Plastic / Box Packaged', 'Logo / Non Logo'] }, id: { name: 'Kantong Sanitasi', desc: 'Kantong sanitasi dikemas individual, dalam format plastik atau kotak, dengan atau tanpa logo.', tags: ['Kantong Sanitasi', 'Kemasan Plastik / Kotak', 'Logo / Non Logo'] } },
+                    { en: { name: 'Shower Cap Kit', desc: 'Individually packaged shower cap, in plastic or box format, with or without logo.', tags: ['Shower Cap', 'Plastic / Box Packaged', 'Logo / Non Logo'] }, id: { name: 'Kit Shower Cap', desc: 'Shower cap dikemas individual, dalam format plastik atau kotak, dengan atau tanpa logo.', tags: ['Shower Cap', 'Kemasan Plastik / Kotak', 'Logo / Non Logo'] } },
+                    { en: { name: 'Laundry Bag', desc: 'Standard laundry bag with or without logo, or fully custom design on request.', tags: ['Logo / Non Logo', 'Custom Design'] }, id: { name: 'Tas Laundry', desc: 'Tas laundry standar dengan atau tanpa logo, atau desain khusus sesuai permintaan.', tags: ['Logo / Non Logo', 'Desain Khusus'] } },
+                    { en: { name: 'Toiletries Kit', desc: 'Complete set of toiletries bundled with a carry bag, with or without logo or fully custom design.', tags: ['Toiletries + Bag', 'Logo / Non Logo', 'Custom Design'] }, id: { name: 'Kit Perlengkapan Mandi', desc: 'Set lengkap perlengkapan mandi digabung dengan tas, dengan atau tanpa logo atau desain khusus.', tags: ['Perlengkapan Mandi + Tas', 'Logo / Non Logo', 'Desain Khusus'] } },
+                ]
+            },
+            towels: {
+                en: { title: 'Towel & Linen', desc: 'Bath towel, hand towel, bedding, and more — hotel-grade towels and linen manufactured from high-quality combed cotton. Available with or without logo or fully custom design, in border, emboss, or standard finish.' },
+                id: { title: 'Handuk & Linen', desc: 'Handuk mandi, handuk tangan, sprei, dan lainnya — handuk dan linen bermutu hotel yang dibuat dari kapas sisir berkualitas tinggi. Tersedia dengan atau tanpa logo atau desain khusus, dalam finishing border, emboss, atau standar.' },
+                products: [
+                    { en: { name: 'Bath Towel', desc: 'Available with or without logo or fully custom design, in border, emboss, or standard finish.', tags: ['Logo / Non Logo', 'Custom Design', 'Border / Emboss / Standard'] }, id: { name: 'Handuk Mandi', desc: 'Tersedia dengan atau tanpa logo atau desain khusus, dalam finishing border, emboss, atau standar.', tags: ['Logo / Non Logo', 'Desain Khusus', 'Border / Emboss / Standar'] } },
+                    { en: { name: 'Hand Towel', desc: 'Available with or without logo or fully custom design, in border, emboss, or standard finish.', tags: ['Logo / Non Logo', 'Custom Design', 'Border / Emboss / Standard'] }, id: { name: 'Handuk Tangan', desc: 'Tersedia dengan atau tanpa logo atau desain khusus, dalam finishing border, emboss, atau standar.', tags: ['Logo / Non Logo', 'Desain Khusus', 'Border / Emboss / Standar'] } },
+                    { en: { name: 'Bedding', desc: 'Complete bedding range covering bed cover, pillow case, pillow, bolster, and bed runner.', tags: ['Bed Cover', 'Pillow Case / Pillow', 'Bolster / Bed Runner'] }, id: { name: 'Perlengkapan Tempat Tidur', desc: 'Rangkaian lengkap perlengkapan tempat tidur mencakup bed cover, sarung bantal, bantal, guling, dan bed runner.', tags: ['Bed Cover', 'Sarung Bantal / Bantal', 'Guling / Bed Runner'] } },
+                    { en: { name: 'Face Towel', desc: 'Available with or without logo or fully custom design, in border, emboss, or standard finish.', tags: ['Logo / Non Logo', 'Custom Design', 'Border / Emboss / Standard'] }, id: { name: 'Handuk Wajah', desc: 'Tersedia dengan atau tanpa logo atau desain khusus, dalam finishing border, emboss, atau standar.', tags: ['Logo / Non Logo', 'Desain Khusus', 'Border / Emboss / Standar'] } },
+                    { en: { name: 'Bath Mat', desc: 'Available with or without logo or fully custom design, in border, emboss, or standard finish.', tags: ['Logo / Non Logo', 'Custom Design', 'Border / Emboss / Standard'] }, id: { name: 'Keset Kamar Mandi', desc: 'Tersedia dengan atau tanpa logo atau desain khusus, dalam finishing border, emboss, atau standar.', tags: ['Logo / Non Logo', 'Desain Khusus', 'Border / Emboss / Standar'] } },
+                    { en: { name: 'Bed Cover', desc: 'Available as a standalone bed cover piece, matched to your room linen collection.', tags: ['Matches Linen Set', 'Custom Size'] }, id: { name: 'Bed Cover', desc: 'Tersedia sebagai bed cover tersendiri, diserasikan dengan koleksi linen kamar Anda.', tags: ['Serasi dengan Set Linen', 'Ukuran Khusus'] } },
+                    { en: { name: 'Bath Robe', desc: 'Available with or without logo or fully custom design, in border, emboss, or standard finish.', tags: ['Logo / Non Logo', 'Custom Design', 'Border / Emboss / Standard'] }, id: { name: 'Jubah Mandi', desc: 'Tersedia dengan atau tanpa logo atau desain khusus, dalam finishing border, emboss, atau standar.', tags: ['Logo / Non Logo', 'Desain Khusus', 'Border / Emboss / Standar'] } },
+                ]
+            },
+            slippers: {
+                en: { title: 'Hotel Slippers', desc: 'Open toe and closed toe hotel slippers in a range of materials and sole types. Available for custom design in border, emboss, or plain finish.' },
+                id: { title: 'Sandal Hotel', desc: 'Sandal hotel ujung terbuka dan tertutup dalam berbagai material dan jenis sol. Tersedia desain khusus dalam finishing border, emboss, atau polos.' },
+                products: [
+                    { en: { name: 'Open Toe Slippers', desc: 'Available with EVA, sponge, or TPR sole, in cotton, EVA, microfiber, terry, waffle, or fleece upper. Custom design available in border, emboss, or plain finish.', tags: ['EVA / Sponge / TPR Sole', 'Cotton / Terry / Waffle / Fleece', 'Border / Emboss / Plain'] }, id: { name: 'Sandal Terbuka', desc: 'Tersedia dengan sol EVA, sponge, atau TPR, dengan bagian atas katun, EVA, microfiber, terry, waffle, atau fleece. Desain khusus tersedia dalam finishing border, emboss, atau polos.', tags: ['Sol EVA / Sponge / TPR', 'Katun / Terry / Waffle / Fleece', 'Border / Emboss / Polos'] } },
+                    { en: { name: 'Closed Toe Slippers', desc: 'Available with EVA, sponge, or TPR sole, in cotton, EVA, microfiber, terry, waffle, or fleece upper. Custom design available in border, emboss, or plain finish.', tags: ['EVA / Sponge / TPR Sole', 'Cotton / Terry / Waffle / Fleece', 'Border / Emboss / Plain'] }, id: { name: 'Sandal Tertutup', desc: 'Tersedia dengan sol EVA, sponge, atau TPR, dengan bagian atas katun, EVA, microfiber, terry, waffle, atau fleece. Desain khusus tersedia dalam finishing border, emboss, atau polos.', tags: ['Sol EVA / Sponge / TPR', 'Katun / Terry / Waffle / Fleece', 'Border / Emboss / Polos'] } },
+                ]
+            },
+            dining: {
+                en: { title: 'Dining Supplies', desc: 'In-room dining and F&B accessories for hotel guest rooms and restaurants — sachets, stirrers, straws, mugs, tissue, and coasters. All food-contact items are produced under food-safe standards.' },
+                id: { title: 'Perlengkapan Makan', desc: 'Aksesori makan di kamar dan F&B untuk kamar tamu hotel dan restoran — sachet, pengaduk, sedotan, mug, tisu, dan tatakan gelas. Semua item yang bersentuhan dengan makanan diproduksi di bawah standar aman pangan.' },
+                products: [
+                    { en: { name: 'Sugar & Sweetener Sachet', desc: 'White sugar, brown sugar, sweetener, and creamer in individual sachets. Available in multiple gram weights, stick or square format.', tags: ['White / Brown Sugar', 'Sweetener / Creamer', 'Stick / Square'] }, id: { name: 'Sachet Gula & Pemanis', desc: 'Gula putih, gula cokelat, pemanis, dan krimer dalam sachet individual. Tersedia dalam berbagai berat gram, format stick atau persegi.', tags: ['Gula Putih / Cokelat', 'Pemanis / Krimer', 'Stick / Persegi'] } },
+                    { en: { name: 'Coffee & Tea Sachet', desc: 'Coffee sachets and tea bags in multiple gram weights, with matching creamer sachets available.', tags: ['Coffee Sachet / Tea Bag', 'Multiple gr Weights', 'Creamer Option'] }, id: { name: 'Sachet Kopi & Teh', desc: 'Sachet kopi dan kantong teh dalam berbagai berat gram, dengan sachet krimer serasi tersedia.', tags: ['Sachet Kopi / Kantong Teh', 'Berbagai Berat gr', 'Pilihan Krimer'] } },
+                    { en: { name: 'Stirrer & Straw', desc: 'Plastic or wooden stirrers, and PP or paper straws, packaged in plastic or box format, with or without logo.', tags: ['Plastic / Wooden Stirrer', 'PP / Paper Straw', 'Logo / Non Logo'] }, id: { name: 'Pengaduk & Sedotan', desc: 'Pengaduk plastik atau kayu, dan sedotan PP atau kertas, dikemas dalam format plastik atau kotak, dengan atau tanpa logo.', tags: ['Pengaduk Plastik / Kayu', 'Sedotan PP / Kertas', 'Logo / Non Logo'] } },
+                    { en: { name: 'Mugs', desc: 'Ceramic or glass mugs, with or without logo printing.', tags: ['Ceramic / Glass', 'Logo / Non Logo'] }, id: { name: 'Mug', desc: 'Mug keramik atau kaca, dengan atau tanpa cetak logo.', tags: ['Keramik / Kaca', 'Logo / Non Logo'] } },
+                    { en: { name: 'Tissue', desc: 'In-room dining tissue, with or without logo printing.', tags: ['Logo / Non Logo'] }, id: { name: 'Tisu', desc: 'Tisu makan di kamar, dengan atau tanpa cetak logo.', tags: ['Logo / Non Logo'] } },
+                    { en: { name: 'Coaster', desc: 'Paper or plastic coasters, with or without logo printing.', tags: ['Paper / Plastic', 'Logo / Non Logo'] }, id: { name: 'Tatakan Gelas', desc: 'Tatakan gelas kertas atau plastik, dengan atau tanpa cetak logo.', tags: ['Kertas / Plastik', 'Logo / Non Logo'] } },
+                ]
+            },
+            other: {
+                en: { title: 'Room Accessories', desc: 'Essential non-consumable room accessories that contribute to the guest experience. Supplied as standard items or with custom hotel branding.' },
+                id: { title: 'Aksesori Kamar', desc: 'Aksesori kamar non-konsumabel penting yang berkontribusi pada pengalaman tamu. Dipasok sebagai item standar atau dengan branding hotel khusus.' },
+                products: [
+                    { en: { name: 'Laundry Bag', desc: 'Cotton or non-woven laundry bag with drawstring. Printed with hotel logo and laundry instruction slip.', tags: ['Cotton / Non-Woven', 'Drawstring', 'Logo Print'] }, id: { name: 'Tas Laundry', desc: 'Tas laundry katun atau non-woven dengan tali serut. Dicetak dengan logo hotel dan slip instruksi laundry.', tags: ['Katun / Non-Woven', 'Tali Serut', 'Cetak Logo'] } },
+                    { en: { name: 'Wooden Hanger', desc: 'Solid or veneered wood suit hanger with chrome or brushed hook. Bar or pin style. Logo stamping available.', tags: ['Solid Wood', 'Chrome / Brushed Hook', 'Logo Stamp'] }, id: { name: 'Gantungan Kayu', desc: 'Gantungan jas kayu solid atau veneer dengan kait krom atau sikat. Gaya bar atau pin. Stempel logo tersedia.', tags: ['Kayu Solid', 'Kait Krom / Sikat', 'Stempel Logo'] } },
+                    { en: { name: 'Shoe Horn', desc: 'Long-handle metal shoe horn in brushed silver or chrome. Individually bagged or hung in wardrobe.', tags: ['Metal', 'Long Handle', 'Brushed / Chrome'] }, id: { name: 'Pengait Sepatu', desc: 'Pengait sepatu logam pegangan panjang dalam warna perak sikat atau krom. Dikemas individual atau digantung di lemari.', tags: ['Logam', 'Pegangan Panjang', 'Sikat / Krom'] } },
+                    { en: { name: 'Do Not Disturb Sign', desc: 'Door hanger in cardboard, plastic, or fabric finish. Double-sided DND / make-up room. Custom hotel branding printed.', tags: ['Cardboard / Plastic', 'Double-Sided', 'Custom Print'] }, id: { name: 'Tanda Jangan Ganggu', desc: 'Gantungan pintu dalam karton, plastik, atau kain. DND dua sisi / kamar rias. Branding hotel khusus dicetak.', tags: ['Karton / Plastik', 'Dua Sisi', 'Cetak Khusus'] } },
+                ]
+            },
+            stationary: {
+                en: { title: 'Stationery', desc: 'In-room writing materials and printed collateral. All stationery items can be printed with your hotel name, logo, address, and contact details.' },
+                id: { title: 'Alat Tulis', desc: 'Bahan menulis di kamar dan materi cetak. Semua item alat tulis dapat dicetak dengan nama hotel, logo, alamat, dan detail kontak Anda.' },
+                products: [
+                    { en: { name: 'Notepad', desc: 'A5 or A6 notepad, 25 or 50 sheets. Glued or spiral-bound. Custom header with hotel branding printed in full color.', tags: ['A5 / A6', '25–50 Sheets', 'Custom Header'] }, id: { name: 'Buku Catatan', desc: 'Buku catatan A5 atau A6, 25 atau 50 lembar. Dilem atau spiral. Header khusus dengan branding hotel dicetak berwarna penuh.', tags: ['A5 / A6', '25–50 Lembar', 'Header Khusus'] } },
+                    { en: { name: 'Hotel Pen', desc: 'Ballpoint or gel pen. Black or blue ink. Barrel printed with hotel logo and website. Available in matte or glossy finish.', tags: ['Ballpoint / Gel', 'Logo Barrel', 'Matte / Gloss'] }, id: { name: 'Pena Hotel', desc: 'Pena ballpoint atau gel. Tinta hitam atau biru. Barel dicetak dengan logo hotel dan website. Tersedia dalam finishing matte atau gloss.', tags: ['Ballpoint / Gel', 'Barel Logo', 'Matte / Gloss'] } },
+                    { en: { name: 'Envelope', desc: 'DL or C5 envelope in white or kraft. Printed with hotel return address and logo on back flap.', tags: ['DL / C5', 'White / Kraft', 'Return Address Print'] }, id: { name: 'Amplop', desc: 'Amplop DL atau C5 dalam putih atau kraft. Dicetak dengan alamat pengirim hotel dan logo di flap belakang.', tags: ['DL / C5', 'Putih / Kraft', 'Cetak Alamat Kembali'] } },
+                    { en: { name: 'Hotel Directory / Welcome Card', desc: 'Desk card or booklet covering room facilities, emergency contacts, and hotel services. Custom layout and print.', tags: ['Card / Booklet', 'Custom Layout', 'Full Color Print'] }, id: { name: 'Direktori Hotel / Kartu Selamat Datang', desc: 'Kartu meja atau buku kecil yang mencakup fasilitas kamar, kontak darurat, dan layanan hotel. Tata letak dan cetak khusus.', tags: ['Kartu / Buku Kecil', 'Tata Letak Khusus', 'Cetak Berwarna Penuh'] } },
+                ]
+            },
+            packaging: {
+                en: { title: 'Packaging & Bags', desc: 'Guest-facing packaging and carry items that extend your hotel branding beyond the room. All items fully printable with custom design.' },
+                id: { title: 'Kemasan & Tas', desc: 'Kemasan yang menghadap tamu dan item bawa yang memperluas branding hotel Anda melewati kamar. Semua item dapat dicetak penuh dengan desain khusus.' },
+                products: [
+                    { en: { name: 'Guest Bag / Check-in Bag', desc: 'Non-woven or kraft paper bag for amenity delivery or welcome package. Full-color printing on outer panel.', tags: ['Non-Woven / Kraft', 'Full Color', 'Welcome Pack'] }, id: { name: 'Tas Tamu / Tas Check-in', desc: 'Tas non-woven atau kertas kraft untuk pengiriman ameniti atau paket selamat datang. Cetak berwarna penuh pada panel luar.', tags: ['Non-Woven / Kraft', 'Berwarna Penuh', 'Paket Selamat Datang'] } },
+                    { en: { name: 'Tote Bag', desc: 'Cotton canvas tote for executive or amenity kits. Screen-printed or embroidered logo. Long handle or short handle option.', tags: ['Cotton Canvas', 'Screen Print / Embroidery', 'Executive Kit'] }, id: { name: 'Tote Bag', desc: 'Tote kanvas katun untuk kit eksekutif atau ameniti. Logo cetak sablon atau bordir. Pilihan pegangan panjang atau pendek.', tags: ['Kanvas Katun', 'Sablon / Bordir', 'Kit Eksekutif'] } },
+                    { en: { name: 'Key Card Holder', desc: 'Kraft or glossy cardstock key card envelope. Printed with room number field, hotel name, and WiFi details panel.', tags: ['Kraft / Gloss Card', 'WiFi Panel', 'Room Number Field'] }, id: { name: 'Tempat Kartu Kunci', desc: 'Amplop kartu kunci karton kraft atau glossy. Dicetak dengan kolom nomor kamar, nama hotel, dan panel detail WiFi.', tags: ['Karton Kraft / Gloss', 'Panel WiFi', 'Kolom Nomor Kamar'] } },
+                    { en: { name: 'Amenity Pouch', desc: 'Zippered fabric pouch for vanity or amenity kit assembly. Microfiber or canvas. Single-color or full-color print.', tags: ['Microfiber / Canvas', 'Zipper', 'Custom Print'] }, id: { name: 'Pouch Ameniti', desc: 'Pouch kain berritsleting untuk perakitan kit kecantikan atau ameniti. Microfiber atau kanvas. Cetak satu warna atau berwarna penuh.', tags: ['Microfiber / Kanvas', 'Ritsleting', 'Cetak Khusus'] } },
+                ]
+            }
+        };
+
+        // ===== OPEN / CLOSE CATEGORY PANEL =====
+        function openCategory(key) {
+            event && event.preventDefault();
+            const cat = categories[key];
+            if (!cat) return;
+
+            const lang = currentLang;
+            const data = cat[lang];
+            const panel = document.getElementById('productPanel');
+
+            document.getElementById('panelTitle').textContent = data.title;
+            document.getElementById('panelDesc').textContent = data.desc;
+
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = '';
+
+            cat.products.forEach(p => {
+                const pd = p[lang];
+                const tagsHTML = pd.tags.map(t => `<span class="product-tag">${t}</span>`).join('');
+                grid.innerHTML += `
+      <div class="product-card">
+        <div class="product-img-wrap">
+          <!-- PHOTO: Product photograph for "${pd.name}" goes here.
+               Replace the placeholder div below with, e.g.:
+               <img src="images/products/${key}/${pd.name.toLowerCase().replace(/[^a-z0-9]+/g,'-')}.jpg" alt="${pd.name}">
+               Recommended: square image, min 600x600px, consistent background/lighting across the catalog. -->
+          <div class="product-img-placeholder">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="rgba(27,58,92,0.25)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+          </div>
+        </div>
+        <div class="product-card-body">
+          <div class="product-card-name">${pd.name}</div>
+          <p class="product-card-desc">${pd.desc}</p>
+          <div class="product-tags">${tagsHTML}</div>
+          <a href="https://wa.me/6282111896017?text=${encodeURIComponent('Hello, I am interested in your ' + pd.name + ' product. Could you provide more information?')}" target="_blank" class="product-enquire-btn">
+            ${lang === 'en' ? 'Enquire via WhatsApp' : 'Tanya via WhatsApp'}
+          </a>
+        </div>
+      </div>
+    `;
+            });
+
+            panel.classList.add('open');
+            document.body.style.overflow = 'hidden';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function closeCategory() {
+            document.getElementById('productPanel').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        document.getElementById('productPanel').addEventListener('click', function (e) {
+            if (e.target === this) closeCategory();
+        });
+
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') closeCategory();
+        });
+
+        // ===== FORM SUBMIT =====
+        function submitForm() {
+            const firstName = document.getElementById('firstName').value.trim();
+            const email = document.getElementById('email').value.trim();
+
+            if (!firstName || !email) {
+                alert(currentLang === 'en' ? 'Please fill in your name and email address.' : 'Harap isi nama dan alamat email Anda.');
+                return;
+            }
+
+            document.getElementById('formWrap').style.display = 'none';
+            const success = document.getElementById('formSuccess');
+            success.style.display = 'block';
+
+            // Update success message language
+            const h4 = success.querySelector('h4');
+            const p = success.querySelector('p');
+            if (currentLang === 'id') {
+                h4.textContent = 'Pertanyaan Terkirim';
+                p.textContent = 'Terima kasih. Pesan Anda telah diterima. Anggota tim kami akan segera menghubungi Anda dengan informasi yang Anda butuhkan.';
+            }
+        }
+
+        // ===== SCROLL REVEAL =====
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // ===== NAVBAR SCROLL =====
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 60) {
+                nav.style.boxShadow = '0 4px 24px rgba(10,20,35,0.35)';
+            } else {
+                nav.style.boxShadow = 'none';
+            }
+        });
+
+        // Init
+        setLang('id');
+    </script>
+</body>
+
+</html>
