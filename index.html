@@ -78,8 +78,10 @@
         .nav-links {
             display: flex;
             align-items: center;
-            gap: 22px;
-            /* Reduced gap to fit all items on one line */
+            gap: 28px;
+            /* Links fill the space between logo and right-side buttons, spread evenly */
+            flex: 1;
+            justify-content: space-evenly;
             list-style: none;
             margin: 0;
             padding: 0;
@@ -127,6 +129,7 @@
             align-items: center;
             gap: 16px;
             flex-shrink: 0;
+            margin-left: 40px;
         }
 
         .lang-toggle {
@@ -179,155 +182,88 @@
             min-height: 100vh;
             background: var(--navy);
             display: flex;
-            flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             position: relative;
+            overflow-x: clip;
+            overflow-y: visible;
+            padding: 120px 80px 190px;
+            /* Space for the logo bar, which extends below the hero toward the catalog */
+            --marquee-extra: 60px;
+            margin-bottom: var(--marquee-extra);
+        }
+
+        /* Single full-bleed background photo */
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
             overflow: hidden;
-            padding: 100px 20px 60px;
         }
 
-        /* Background Effects */
-        .hero-bg-pattern {
-            position: absolute;
-            inset: 0;
-            background-image:
-                radial-gradient(circle at 50% 50%, rgba(76, 175, 80, 0.08) 0%, transparent 70%),
-                radial-gradient(circle at 20% 80%, rgba(201, 168, 76, 0.06) 0%, transparent 40%);
+        .hero-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
 
-        .hero-grid-lines {
-            position: absolute;
-            inset: 0;
-            background-image:
-                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-            background-size: 60px 60px;
-        }
-
-        /* Main Content */
+        /* Text panel on the left */
         .hero-content {
             position: relative;
             z-index: 2;
             width: 100%;
-            max-width: 1100px;
-            margin: 0 auto;
-            text-align: center;
-
+            max-width: 560px;
+            padding: 56px 48px 44px;
+            background: rgba(27, 58, 92, 0.82);
+            backdrop-filter: blur(4px);
+            text-align: left;
             display: flex;
             flex-direction: column;
-            align-items: center;
-        }
-
-        /* ===== TOP SECTION ===== */
-        .hero-top {
-            margin-bottom: 40px;
+            align-items: flex-start;
         }
 
         .hero-badge {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-
             background: rgba(76, 175, 80, 0.15);
             border: 1px solid rgba(76, 175, 80, 0.3);
-
             color: var(--green);
-
             font-size: 11px;
             font-weight: 700;
             letter-spacing: 2px;
             text-transform: uppercase;
-
             padding: 7px 16px;
             border-radius: 2px;
             margin-bottom: 24px;
-
             animation: fadeUp 0.6s ease both;
         }
 
-        .hero-badge::before {
-            content: '';
-            width: 6px;
-            height: 6px;
-            background: var(--green);
-            border-radius: 50%;
-        }
-
         .hero-title {
-            font-size: clamp(32px, 5vw, 56px);
-            font-weight: 800;
+            font-size: clamp(30px, 3.6vw, 44px);
+            font-weight: 500;
             color: white;
-            line-height: 1.1;
-            letter-spacing: -1px;
-            margin: 0 auto;
-
+            line-height: 1.15;
+            letter-spacing: -0.5px;
+            margin: 0 0 36px;
             animation: fadeUp 0.6s 0.1s ease both;
         }
 
         .hero-title span {
+            display: block;
+            font-size: clamp(48px, 6vw, 76px);
+            font-weight: 800;
+            letter-spacing: -2px;
+            line-height: 1.05;
             color: var(--green);
-        }
-
-        /* ===== MIDDLE SECTION ===== */
-        .hero-product-highlights {
-            display: flex;
-            gap: 20px;
-            width: 100%;
-            justify-content: center;
-            flex-wrap: wrap;
-
-            margin-bottom: 40px;
-
-            animation: fadeUp 0.6s 0.2s ease both;
-        }
-
-        .product-highlight-item {
-            flex: 0 1 300px;
-            aspect-ratio: 4 / 5;
-
-            background: rgba(255, 255, 255, 0.05);
-
-            border-radius: 4px;
-            overflow: hidden;
-
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .product-highlight-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* ===== BOTTOM SECTION ===== */
-        .hero-bottom {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-        }
-
-        .hero-desc {
-            font-size: 16px;
-            line-height: 1.8;
-            color: rgba(255, 255, 255, 0.7);
-
-            margin-bottom: 32px;
-
-            font-weight: 400;
-            max-width: 650px;
-
-            animation: fadeUp 0.6s 0.3s ease both;
         }
 
         .hero-ctas {
             display: flex;
             gap: 16px;
-            justify-content: center;
             flex-wrap: wrap;
-
-            animation: fadeUp 0.6s 0.4s ease both;
+            animation: fadeUp 0.6s 0.3s ease both;
         }
 
         /* ===== BUTTONS ===== */
@@ -391,21 +327,21 @@
         /* ===== STATS ===== */
         .hero-stats {
             display: flex;
-            justify-content: center;
             align-items: center;
-            gap: 48px;
-
-            margin-top: 50px;
-
+            gap: 32px;
+            width: 100%;
+            margin-top: 40px;
+            padding-top: 28px;
+            border-top: 1px solid rgba(255, 255, 255, 0.12);
             animation: fadeUp 0.6s 0.4s ease both;
         }
 
         .hero-stat {
-            text-align: center;
+            text-align: left;
         }
 
         .hero-stat-num {
-            font-size: 36px;
+            font-size: 32px;
             font-weight: 800;
             color: white;
             line-height: 1;
@@ -420,45 +356,54 @@
             font-weight: 600;
             letter-spacing: 1.5px;
             text-transform: uppercase;
-
-            color: rgba(255, 255, 255, 0.45);
-
+            color: rgba(255, 255, 255, 0.55);
             margin-top: 6px;
         }
 
         .hero-divider {
+            align-self: stretch;
             width: 1px;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.12);
         }
 
         /* ===== MOBILE ===== */
         @media (max-width: 768px) {
-            .hero-product-highlights {
-                flex-wrap: nowrap;
-                overflow-x: auto;
-
-                width: 100%;
-                padding: 0 10px;
-
-                justify-content: flex-start;
-
-                scrollbar-width: none;
+            #hero {
+                padding: 100px 20px 150px;
+                align-items: flex-end;
             }
 
-            .hero-product-highlights::-webkit-scrollbar {
-                display: none;
-            }
-
-            .product-highlight-item {
-                flex: 0 0 75vw;
-                max-width: 320px;
+            .hero-content {
+                max-width: 100%;
+                padding: 36px 24px 28px;
             }
 
             .hero-stats {
-                position: static;
-                margin-top: 40px;
-                justify-content: center;
-                flex-wrap: wrap;
+                gap: 16px;
+                margin-top: 32px;
+            }
+
+            #hero {
+                --marquee-extra: 46px;
+            }
+
+            .hero-marquee {
+                padding: 18px 0 26px;
+            }
+
+            .marquee-label {
+                font-size: 10px;
+                letter-spacing: 2px;
+                margin-bottom: 12px;
+            }
+
+            .marquee-item {
+                height: 48px;
+                margin: 0 32px;
+            }
+
+            .hero-stat-num {
+                font-size: 26px;
             }
         }
 
@@ -684,17 +629,6 @@
             stroke-linejoin: round;
         }
 
-        /* Category placeholder images */
-        .cat-placeholder {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 48px;
-            background: linear-gradient(135deg, var(--navy) 0%, #2a5280 100%);
-        }
-
         /* ===== PRODUCT MODAL / PANEL ===== */
         .product-panel {
             display: none;
@@ -806,16 +740,6 @@
 
         .product-card:hover .product-img-wrap img {
             transform: scale(1.06);
-        }
-
-        .product-img-placeholder {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, #e8e0d4 0%, #d4c8b8 100%);
-            font-size: 40px;
         }
 
         .product-card-body {
@@ -976,197 +900,82 @@
             line-height: 1.5;
         }
 
-        /* ===== PORTFOLIO / CLIENTS ===== */
-        #portfolio {
-            background: var(--cream-dark);
-            padding: 100px 80px;
-        }
-
-        .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2px;
-            background: var(--border);
-            border: 1px solid var(--border);
-            margin-top: 60px;
-        }
-
-        .portfolio-item {
-            background: var(--cream);
-            aspect-ratio: 16/10;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .portfolio-item-placeholder {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, #d4ccc0 0%, #c4b9a8 100%);
-            gap: 8px;
-        }
-
-        .portfolio-item-placeholder span {
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            color: rgba(27, 58, 92, 0.5);
-        }
-
-        .portfolio-item-label {
+        /* ===== HERO LOGO MARQUEE ===== */
+        .hero-marquee {
             position: absolute;
-            bottom: 0;
             left: 0;
             right: 0;
-            background: rgba(27, 58, 92, 0.85);
-            padding: 14px 20px;
+            /* Top edge stays where it was; the extra height grows downward */
+            bottom: calc(-1 * var(--marquee-extra));
+            z-index: 3;
+            padding: 26px 0 34px;
+            background: var(--navy);
+            border-top: 1px solid rgba(201, 168, 76, 0.2);
+            overflow: hidden;
         }
 
-        .portfolio-item-label span {
-            font-size: 12px;
-            font-weight: 600;
-            color: white;
-            letter-spacing: 0.5px;
+        /* Edge fade applies only to the scrolling logos, so the bar itself stays solid */
+        .marquee-viewport {
+            overflow: hidden;
+            -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%);
+            mask-image: linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%);
         }
 
-        .client-logos {
-            margin-top: 80px;
-        }
-
-        .client-logos-title {
+        .marquee-label {
+            text-align: center;
             font-size: 11px;
             font-weight: 700;
             letter-spacing: 3px;
             text-transform: uppercase;
-            color: var(--text-muted);
-            margin-bottom: 36px;
-            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 18px;
         }
 
-        .client-logos-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0;
-            border: 1px solid var(--border);
-        }
-
-        .client-logo-item {
-            flex: 1;
-            min-width: 140px;
-            padding: 28px 20px;
-            border-right: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
+        .marquee-track {
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            text-align: center;
-            transition: all 0.2s;
-            background: white;
-            line-height: 1.4;
+            width: max-content;
+            animation: marqueeScroll 35s linear infinite;
         }
 
-        .client-logo-item:hover {
-            background: var(--navy);
-            color: white;
-        }
-
-        /* ===== ABOUT ===== */
-        #about {
-            background: var(--cream);
-            padding: 100px 80px;
-        }
-
-        .about-inner {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 80px;
-            align-items: center;
-        }
-
-        .about-visual {
-            position: relative;
-        }
-
-        .about-img-main {
-            width: 100%;
-            aspect-ratio: 4/3;
-            background: var(--navy);
-            border-radius: 4px;
+        .marquee-item {
+            flex: 0 0 auto;
+            height: 64px;
+            margin: 0 48px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            overflow: hidden;
         }
 
-        .about-img-placeholder {
-            width: 100%;
+        .marquee-item img {
             height: 100%;
-            background: linear-gradient(135deg, #1B3A5C 0%, #2a5280 100%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            color: rgba(255, 255, 255, 0.4);
-            font-size: 12px;
-            font-weight: 600;
-            letter-spacing: 2px;
-            text-transform: uppercase;
+            width: auto;
+            max-width: 210px;
+            object-fit: contain;
+            display: block;
+            /* Recolour any logo to flat white to match the site theme */
+            filter: grayscale(1) brightness(0) invert(1);
+            opacity: 0.6;
+            transition: opacity 0.3s;
         }
 
-        .about-badge-float {
-            position: absolute;
-            bottom: -24px;
-            right: -24px;
-            background: var(--green);
-            padding: 24px 28px;
-            border-radius: 4px;
-            box-shadow: 0 8px 24px rgba(76, 175, 80, 0.3);
-            text-align: center;
+        .marquee-item img:hover {
+            opacity: 1;
         }
 
-        .about-badge-float .num {
-            font-size: 36px;
-            font-weight: 800;
-            color: white;
-            line-height: 1;
+        @keyframes marqueeScroll {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-50%);
+            }
         }
 
-        .about-badge-float .lbl {
-            font-size: 10px;
-            font-weight: 700;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.8);
-            margin-top: 4px;
-        }
-
-        .about-content {
-            padding-left: 20px;
-        }
-
-        .about-content .section-title {
-            margin-bottom: 24px;
-        }
-
-        .about-text {
-            font-size: 14px;
-            line-height: 1.9;
-            color: var(--text-muted);
-            margin-bottom: 16px;
-        }
-
-        .about-text:last-of-type {
-            margin-bottom: 0;
+        @media (prefers-reduced-motion: reduce) {
+            .marquee-track {
+                animation: none;
+            }
         }
 
         /* ===== CONTACT ===== */
@@ -1559,6 +1368,7 @@
 
             .nav-right {
                 gap: 10px;
+                margin-left: 24px;
             }
 
             .lang-btn {
@@ -1581,13 +1391,8 @@
                 padding: 0 32px;
             }
 
-            .hero-content {
-                padding: 0 40px;
-            }
-
-            .hero-stats {
-                right: 40px;
-                bottom: 60px;
+            #hero {
+                padding: 110px 40px 180px;
             }
 
             .category-grid {
@@ -1598,7 +1403,6 @@
                 grid-template-columns: repeat(2, 1fr);
             }
 
-            .about-inner,
             .custom-inner,
             .contact-grid {
                 grid-template-columns: 1fr;
@@ -1616,8 +1420,6 @@
             #why,
             #products,
             #custom,
-            #portfolio,
-            #about,
             #contact,
             footer {
                 padding: 80px 40px;
@@ -1636,25 +1438,9 @@
             #why,
             #products,
             #custom,
-            #portfolio,
-            #about,
             #contact,
             footer {
                 padding: 60px 24px;
-            }
-
-            .hero-content {
-                padding: 0 24px;
-            }
-
-            .hero-stats {
-                right: 24px;
-                bottom: 40px;
-                gap: 24px;
-            }
-
-            .hero-stat-num {
-                font-size: 28px;
             }
 
             .category-grid {
@@ -1675,12 +1461,9 @@
                 grid-template-columns: 1fr;
             }
 
-            .portfolio-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-
             .hero-ctas {
                 flex-direction: column;
+                width: 100%;
             }
 
             .btn-primary,
@@ -1688,10 +1471,6 @@
                 text-align: center;
             }
 
-            .about-badge-float {
-                right: 0;
-                bottom: -20px;
-            }
         }
     </style>
 </head>
@@ -1701,14 +1480,13 @@
     <!-- NAVBAR -->
     <nav id="navbar">
         <a href="#" class="nav-logo">
+            <!-- PHOTO NEEDED: Pinessa logo (color/light version for dark navbar) | Recommended: transparent PNG, ~52px tall -->
             <img src="logo.png" alt="Pinessa Logo" class="custom-logo">
         </a>
         <ul class="nav-links">
             <li><a href="#products" data-en="Products" data-id="Produk">Products</a></li>
             <li><a href="#custom" data-en="Custom Branding" data-id="Custom Branding">Custom Branding</a></li>
-            <li><a href="#portfolio" data-en="Portfolio" data-id="Portofolio">Portfolio</a></li>
             <li><a href="#why" data-en="Why Pinessa" data-id="Mengapa Pinessa">Why Pinessa</a></li>
-            <li><a href="#about" data-en="About" data-id="Tentang Kami">About</a></li>
             <li><a href="#contact" data-en="Contact" data-id="Kontak">Contact</a></li>
         </ul>
         <div class="nav-right">
@@ -1723,63 +1501,117 @@
 
     <!-- HERO -->
     <section id="hero">
-        <div class="hero-bg-pattern"></div>
-        <div class="hero-grid-lines"></div>
+        <div class="hero-bg">
+            <!-- PHOTO NEEDED: Hero background — one amenities highlight photo (e.g. styled hotel amenities flat-lay) | Recommended: wide landscape, min 1920x1080px -->
+            <img src="product-image-1.jpg" alt="Pinessa Hotel Amenities">
+        </div>
 
         <div class="hero-content">
-            <div class="hero-top">
-                <div class="hero-badge" data-en="Trusted Since 2007" data-id="Dipercaya Sejak 2007">Trusted Since 2007
-                </div>
-                <h1 class="hero-title"
-                    data-en="High-Quality Hotel Amenities<br>for <span>Exceptional</span><br>Guest Experiences"
-                    data-id="Amenities Hotel Berkualitas<br>untuk Pengalaman Tamu yang <span>Luar Biasa</span>">
-                    Premium Hotel Amenities<br>for <span>Exceptional</span><br>Guest Experiences
-                </h1>
+            <div class="hero-badge" data-en="Trusted Since 2007" data-id="Dipercaya Sejak 2007">Trusted Since 2007
+            </div>
+            <h1 class="hero-title" data-en="<span>Excellent</span>things start here"
+                data-id="<span>Excellent</span>things start here">
+                <span>Excellent</span>things start here
+            </h1>
+
+            <div class="hero-ctas">
+                <a href="#products" class="btn-primary" data-en="Browse Products" data-id="Lihat Produk">Browse
+                    Products</a>
+                <a href="#contact" class="btn-outline" data-en="Send Inquiry" data-id="Kirim Pertanyaan">Send
+                    Inquiry</a>
             </div>
 
-            <div class="hero-product-highlights">
-                <div class="product-highlight-item">
-                    <img src="product-image-1.jpg" alt="Amenities Highlight 1">
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="hero-stat-num">15<span>+</span></div>
+                    <div class="hero-stat-label" data-en="Years Operating" data-id="Tahun Beroperasi">Years Operating</div>
                 </div>
-                <div class="product-highlight-item">
-                    <img src="product-image-2.jpg" alt="Amenities Highlight 2">
+                <div class="hero-divider"></div>
+                <div class="hero-stat">
+                    <div class="hero-stat-num">200<span>+</span></div>
+                    <div class="hero-stat-label" data-en="Hotel Partners" data-id="Mitra Hotel">Hotel Partners</div>
                 </div>
-                <div class="product-highlight-item">
-                    <img src="product-image-3.jpg" alt="Amenities Highlight 3">
-                </div>
-            </div>
-
-            <div class="hero-bottom">
-                <p class="hero-desc"
-                    data-en="Pinessa supplies complete hotel amenities — from toiletries and towels to in-room dining essentials. Trusted by hotels across Indonesia for over 15 years, with options for fully custom-branded products."
-                    data-id="Pinessa menyediakan perlengkapan hotel lengkap — dari perlengkapan mandi, handuk, hingga kebutuhan makan malam di kamar. Dipercaya oleh hotel-hotel di seluruh Indonesia selama lebih dari 15 tahun, dengan pilihan produk bermerek khusus.">
-                    Pinessa supplies complete hotel amenities — from toiletries and towels to in-room dining essentials.
-                    Trusted by hotels across Indonesia for over 15 years, with options for fully custom-branded
-                    products.
-                </p>
-                <div class="hero-ctas">
-                    <a href="#products" class="btn-primary" data-en="Browse Products" data-id="Lihat Produk">Browse
-                        Products</a>
-                    <a href="#contact" class="btn-outline" data-en="Send Inquiry" data-id="Kirim Pertanyaan">Send
-                        Inquiry</a>
+                <div class="hero-divider"></div>
+                <div class="hero-stat">
+                    <div class="hero-stat-num">50<span>+</span></div>
+                    <div class="hero-stat-label" data-en="Product Lines" data-id="Lini Produk">Product Lines</div>
                 </div>
             </div>
         </div>
 
-        <div class="hero-stats">
-            <div class="hero-stat">
-                <div class="hero-stat-num">15<span>+</span></div>
-                <div class="hero-stat-label" data-en="Years Operating" data-id="Tahun Beroperasi">Years Operating</div>
+        <!-- Hotel logo marquee: logos are duplicated (set 2 is aria-hidden) for a seamless loop.
+             When you add/remove logos, edit BOTH sets so they stay identical. -->
+        <div class="hero-marquee">
+            <div class="marquee-label" data-en="Trusted By" data-id="Dipercaya Oleh">Trusted By</div>
+            <div class="marquee-viewport">
+            <div class="marquee-track">
+                <!-- Set 1 -->
+                <div class="marquee-item">
+                    <!-- PHOTO NEEDED: Hotel logo 1 (transparent PNG, any colour — auto-filtered to white) | Recommended: ~300x100px, wide/landscape -->
+                    <img src="images/hotel-logos/logo-1.png" alt="Hotel Partner 1">
+                </div>
+                <div class="marquee-item">
+                    <!-- PHOTO NEEDED: Hotel logo 2 (transparent PNG, any colour — auto-filtered to white) | Recommended: ~300x100px, wide/landscape -->
+                    <img src="images/hotel-logos/logo-2.png" alt="Hotel Partner 2">
+                </div>
+                <div class="marquee-item">
+                    <!-- PHOTO NEEDED: Hotel logo 3 (transparent PNG, any colour — auto-filtered to white) | Recommended: ~300x100px, wide/landscape -->
+                    <img src="images/hotel-logos/logo-3.png" alt="Hotel Partner 3">
+                </div>
+                <div class="marquee-item">
+                    <!-- PHOTO NEEDED: Hotel logo 4 (transparent PNG, any colour — auto-filtered to white) | Recommended: ~300x100px, wide/landscape -->
+                    <img src="images/hotel-logos/logo-4.png" alt="Hotel Partner 4">
+                </div>
+                <div class="marquee-item">
+                    <!-- PHOTO NEEDED: Hotel logo 5 (transparent PNG, any colour — auto-filtered to white) | Recommended: ~300x100px, wide/landscape -->
+                    <img src="images/hotel-logos/logo-5.png" alt="Hotel Partner 5">
+                </div>
+                <div class="marquee-item">
+                    <!-- PHOTO NEEDED: Hotel logo 6 (transparent PNG, any colour — auto-filtered to white) | Recommended: ~300x100px, wide/landscape -->
+                    <img src="images/hotel-logos/logo-6.png" alt="Hotel Partner 6">
+                </div>
+                <div class="marquee-item">
+                    <!-- PHOTO NEEDED: Hotel logo 7 (transparent PNG, any colour — auto-filtered to white) | Recommended: ~300x100px, wide/landscape -->
+                    <img src="images/hotel-logos/logo-7.png" alt="Hotel Partner 7">
+                </div>
+                <div class="marquee-item">
+                    <!-- PHOTO NEEDED: Hotel logo 8 (transparent PNG, any colour — auto-filtered to white) | Recommended: ~300x100px, wide/landscape -->
+                    <img src="images/hotel-logos/logo-8.png" alt="Hotel Partner 8">
+                </div>
+                <!-- Set 2 (duplicate) -->
+                <div class="marquee-item" aria-hidden="true">
+                    <!-- PHOTO NEEDED: Hotel logo 1 (transparent PNG, any colour — auto-filtered to white) | Recommended: ~300x100px, wide/landscape -->
+                    <img src="images/hotel-logos/logo-1.png" alt="Hotel Partner 1">
+                </div>
+                <div class="marquee-item" aria-hidden="true">
+                    <!-- PHOTO NEEDED: Hotel logo 2 (transparent PNG, any colour — auto-filtered to white) | Recommended: ~300x100px, wide/landscape -->
+                    <img src="images/hotel-logos/logo-2.png" alt="Hotel Partner 2">
+                </div>
+                <div class="marquee-item" aria-hidden="true">
+                    <!-- PHOTO NEEDED: Hotel logo 3 (transparent PNG, any colour — auto-filtered to white) | Recommended: ~300x100px, wide/landscape -->
+                    <img src="images/hotel-logos/logo-3.png" alt="Hotel Partner 3">
+                </div>
+                <div class="marquee-item" aria-hidden="true">
+                    <!-- PHOTO NEEDED: Hotel logo 4 (transparent PNG, any colour — auto-filtered to white) | Recommended: ~300x100px, wide/landscape -->
+                    <img src="images/hotel-logos/logo-4.png" alt="Hotel Partner 4">
+                </div>
+                <div class="marquee-item" aria-hidden="true">
+                    <!-- PHOTO NEEDED: Hotel logo 5 (transparent PNG, any colour — auto-filtered to white) | Recommended: ~300x100px, wide/landscape -->
+                    <img src="images/hotel-logos/logo-5.png" alt="Hotel Partner 5">
+                </div>
+                <div class="marquee-item" aria-hidden="true">
+                    <!-- PHOTO NEEDED: Hotel logo 6 (transparent PNG, any colour — auto-filtered to white) | Recommended: ~300x100px, wide/landscape -->
+                    <img src="images/hotel-logos/logo-6.png" alt="Hotel Partner 6">
+                </div>
+                <div class="marquee-item" aria-hidden="true">
+                    <!-- PHOTO NEEDED: Hotel logo 7 (transparent PNG, any colour — auto-filtered to white) | Recommended: ~300x100px, wide/landscape -->
+                    <img src="images/hotel-logos/logo-7.png" alt="Hotel Partner 7">
+                </div>
+                <div class="marquee-item" aria-hidden="true">
+                    <!-- PHOTO NEEDED: Hotel logo 8 (transparent PNG, any colour — auto-filtered to white) | Recommended: ~300x100px, wide/landscape -->
+                    <img src="images/hotel-logos/logo-8.png" alt="Hotel Partner 8">
+                </div>
             </div>
-            <div class="hero-divider"></div>
-            <div class="hero-stat">
-                <div class="hero-stat-num">200<span>+</span></div>
-                <div class="hero-stat-label" data-en="Hotel Partners" data-id="Mitra Hotel">Hotel Partners</div>
-            </div>
-            <div class="hero-divider"></div>
-            <div class="hero-stat">
-                <div class="hero-stat-num">50<span>+</span></div>
-                <div class="hero-stat-label" data-en="Product Lines" data-id="Lini Produk">Product Lines</div>
             </div>
         </div>
     </section>
@@ -1788,7 +1620,7 @@
     <section id="products">
         <div class="section-header reveal">
             <div class="section-eyebrow" data-en="Product Catalog" data-id="Katalog Produk">Product Catalog</div>
-            <h2 class="section-title" data-en="Browse by Category" data-id="Jelajahi Berdasarkan Kategori">Browse by
+            <h2 class="section-title" data-en="Find the Right Amenities for Your Hotel" data-id="Temukan Amenities yang Tepat untuk Hotel Anda">Browse by
                 Category</h2>
             <p class="section-desc"
                 data-en="Select a category to explore our full range of products, specifications, and material options. All items are available with or without custom hotel branding."
@@ -1798,15 +1630,8 @@
         </div>
         <div class="category-grid">
             <div class="category-card reveal" onclick="openCategory('toiletries')">
-                <div class="cat-placeholder" style="background: linear-gradient(135deg,#2a4a6b,#1B3A5C)">
-                    <!-- PHOTO: category cover photo for Toiletries goes here, e.g.
-                         <img src="images/categories/toiletries.jpg" alt="Toiletries" class="cat-photo">
-                         Recommended: 800x600px, replaces the icon SVG below. -->
-                    <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)"
-                        stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M7 3h10v18H7zM7 7h10M12 3V2M9 12h6M9 15h4" />
-                    </svg>
-                </div>
+                <!-- PHOTO NEEDED: Category cover photo for Toiletries | Recommended: 800x600px -->
+                <img class="category-img" src="images/categories/toiletries.jpg" alt="Toiletries">
                 <div class="category-overlay"></div>
                 <div class="category-label">
                     <h3 data-en="Toiletries" data-id="Perlengkapan Mandi">Toiletries</h3>
@@ -1821,16 +1646,8 @@
                 </div>
             </div>
             <div class="category-card reveal reveal-delay-1" onclick="openCategory('amenitykit')">
-                <div class="cat-placeholder" style="background: linear-gradient(135deg,#2a3a5a,#1a2a4a)">
-                    <!-- PHOTO: category cover photo for Amenity Kits goes here, e.g.
-                         <img src="images/categories/amenity-kit.jpg" alt="Amenity Kits" class="cat-photo">
-                         Recommended: 800x600px, replaces the icon SVG below. -->
-                    <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)"
-                        stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="4" y="8" width="16" height="13" rx="2" />
-                        <path d="M8 8V6a4 4 0 0 1 8 0v2M12 13v3M10 15h4" />
-                    </svg>
-                </div>
+                <!-- PHOTO NEEDED: Category cover photo for Amenity Kits | Recommended: 800x600px -->
+                <img class="category-img" src="images/categories/amenity-kit.jpg" alt="Amenity Kits">
                 <div class="category-overlay"></div>
                 <div class="category-label">
                     <h3 data-en="Amenity Kits" data-id="Kit Ameniti">Amenity Kits</h3>
@@ -1845,16 +1662,8 @@
                 </div>
             </div>
             <div class="category-card reveal reveal-delay-2" onclick="openCategory('towels')">
-                <div class="cat-placeholder" style="background: linear-gradient(135deg,#3a5a3a,#2a4a2a)">
-                    <!-- PHOTO: category cover photo for Towel & Linen goes here, e.g.
-                         <img src="images/categories/towel-linen.jpg" alt="Towel & Linen" class="cat-photo">
-                         Recommended: 800x600px, replaces the icon SVG below. -->
-                    <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)"
-                        stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="2" y="6" width="20" height="12" rx="2" />
-                        <path d="M2 10h20M6 6V4M18 6V4" />
-                    </svg>
-                </div>
+                <!-- PHOTO NEEDED: Category cover photo for Towel & Linen | Recommended: 800x600px -->
+                <img class="category-img" src="images/categories/towel-linen.jpg" alt="Towel & Linen">
                 <div class="category-overlay"></div>
                 <div class="category-label">
                     <h3 data-en="Towel & Linen" data-id="Handuk & Linen">Towel & Linen</h3>
@@ -1869,16 +1678,8 @@
                 </div>
             </div>
             <div class="category-card reveal reveal-delay-3" onclick="openCategory('slippers')">
-                <div class="cat-placeholder" style="background: linear-gradient(135deg,#4a3a2a,#3a2a1a)">
-                    <!-- PHOTO: category cover photo for Hotel Slippers goes here, e.g.
-                         <img src="images/categories/hotel-slippers.jpg" alt="Hotel Slippers" class="cat-photo">
-                         Recommended: 800x600px, replaces the icon SVG below. -->
-                    <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)"
-                        stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M3 12c0-4 3-7 9-7 4 0 7 2 9 5l-3 2-4-2-3 3-3-1z" />
-                        <path d="M3 12l2 6h14l2-6" />
-                    </svg>
-                </div>
+                <!-- PHOTO NEEDED: Category cover photo for Hotel Slippers | Recommended: 800x600px -->
+                <img class="category-img" src="images/categories/hotel-slippers.jpg" alt="Hotel Slippers">
                 <div class="category-overlay"></div>
                 <div class="category-label">
                     <h3 data-en="Hotel Slippers" data-id="Sandal Hotel">Hotel Slippers</h3>
@@ -1893,16 +1694,8 @@
                 </div>
             </div>
             <div class="category-card reveal" onclick="openCategory('dining')">
-                <div class="cat-placeholder" style="background: linear-gradient(135deg,#4a2a2a,#3a1a1a)">
-                    <!-- PHOTO: category cover photo for Dining Supplies goes here, e.g.
-                         <img src="images/categories/dining-supplies.jpg" alt="Dining Supplies" class="cat-photo">
-                         Recommended: 800x600px, replaces the icon SVG below. -->
-                    <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)"
-                        stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2" />
-                        <path d="M7 2v20M21 15V2l-3 5-3-5v13a3 3 0 0 0 6 0z" />
-                    </svg>
-                </div>
+                <!-- PHOTO NEEDED: Category cover photo for Dining Supplies | Recommended: 800x600px -->
+                <img class="category-img" src="images/categories/dining-supplies.jpg" alt="Dining Supplies">
                 <div class="category-overlay"></div>
                 <div class="category-label">
                     <h3 data-en="Dining Supplies" data-id="Perlengkapan Makan">Dining Supplies</h3>
@@ -1917,16 +1710,8 @@
                 </div>
             </div>
             <div class="category-card reveal reveal-delay-1" onclick="openCategory('other')">
-                <div class="cat-placeholder" style="background: linear-gradient(135deg,#2a4a4a,#1a3a3a)">
-                    <!-- PHOTO: category cover photo for Room Accessories goes here, e.g.
-                         <img src="images/categories/room-accessories.jpg" alt="Room Accessories" class="cat-photo">
-                         Recommended: 800x600px, replaces the icon SVG below. -->
-                    <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)"
-                        stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="2" y="3" width="20" height="18" rx="2" />
-                        <path d="M8 3v18M2 9h6M2 15h6M14 9h6M14 15h6" />
-                    </svg>
-                </div>
+                <!-- PHOTO NEEDED: Category cover photo for Room Accessories | Recommended: 800x600px -->
+                <img class="category-img" src="images/categories/room-accessories.jpg" alt="Room Accessories">
                 <div class="category-overlay"></div>
                 <div class="category-label">
                     <h3 data-en="Room Accessories" data-id="Aksesori Kamar">Room Accessories</h3>
@@ -1941,15 +1726,8 @@
                 </div>
             </div>
             <div class="category-card reveal reveal-delay-2" onclick="openCategory('stationary')">
-                <div class="cat-placeholder" style="background: linear-gradient(135deg,#3a4a2a,#2a3a1a)">
-                    <!-- PHOTO: category cover photo for Stationery goes here, e.g.
-                         <img src="images/categories/stationery.jpg" alt="Stationery" class="cat-photo">
-                         Recommended: 800x600px, replaces the icon SVG below. -->
-                    <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)"
-                        stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
-                    </svg>
-                </div>
+                <!-- PHOTO NEEDED: Category cover photo for Stationery | Recommended: 800x600px -->
+                <img class="category-img" src="images/categories/stationery.jpg" alt="Stationery">
                 <div class="category-overlay"></div>
                 <div class="category-label">
                     <h3 data-en="Stationery" data-id="Alat Tulis">Stationery</h3>
@@ -1964,17 +1742,8 @@
                 </div>
             </div>
             <div class="category-card reveal reveal-delay-3" onclick="openCategory('packaging')">
-                <div class="cat-placeholder" style="background: linear-gradient(135deg,#4a4a2a,#3a3a1a)">
-                    <!-- PHOTO: category cover photo for Packaging & Bags goes here, e.g.
-                         <img src="images/categories/packaging-bags.jpg" alt="Packaging & Bags" class="cat-photo">
-                         Recommended: 800x600px, replaces the icon SVG below. -->
-                    <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)"
-                        stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-                        <path
-                            d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
-                        <path d="M3.27 6.96 12 12.01l8.73-5.05M12 22.08V12" />
-                    </svg>
-                </div>
+                <!-- PHOTO NEEDED: Category cover photo for Packaging & Bags | Recommended: 800x600px -->
+                <img class="category-img" src="images/categories/packaging-bags.jpg" alt="Packaging & Bags">
                 <div class="category-overlay"></div>
                 <div class="category-label">
                     <h3 data-en="Packaging & Bags" data-id="Kemasan & Tas">Packaging & Bags</h3>
@@ -2010,7 +1779,7 @@
             <div>
                 <div class="section-eyebrow" data-en="Custom Branding Service" data-id="Layanan Branding Khusus">Custom
                     Branding Service</div>
-                <h2 class="section-title light" data-en="Your Logo, Our Quality" data-id="Logo Anda, Kualitas Kami">Your
+                <h2 class="section-title light" data-en="Branding Solutions for Your Hotel" data-id="Solusi Branding untuk Hotel Anda">Your
                     Logo, Our Quality</h2>
                 <p class="section-desc light"
                     data-en="Elevate your hotel's identity with fully customized amenities bearing your brand. Every guest touchpoint becomes an expression of your property's character."
@@ -2071,106 +1840,6 @@
                         data-id="Produksi & pengiriman dibahas per pesanan via WhatsApp">Production & delivery discussed
                         per order via WhatsApp</p>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- PORTFOLIO -->
-    <section id="portfolio">
-        <div class="section-header reveal">
-            <div class="section-eyebrow" data-en="Our Portfolio" data-id="Portofolio Kami">Our Portfolio</div>
-            <h2 class="section-title" data-en="Hotels That Trust Pinessa" data-id="Hotel yang Mempercayai Pinessa">
-                Hotels That Trust Pinessa</h2>
-            <p class="section-desc"
-                data-en="A selection of Indonesian hotel properties that have chosen Pinessa as their preferred amenities supplier. Each represents our commitment to quality in practice."
-                data-id="Pilihan properti hotel di Indonesia yang telah memilih Pinessa sebagai pemasok perlengkapan pilihan mereka. Masing-masing mewakili komitmen kami terhadap kualitas dalam praktiknya.">
-                A selection of Indonesian hotel properties that have chosen Pinessa as their preferred amenities
-                supplier. Each represents our commitment to quality in practice.</p>
-        </div>
-        <div class="portfolio-grid reveal">
-            <div class="portfolio-item">
-                <div class="portfolio-item-placeholder">
-                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="rgba(27,58,92,0.3)"
-                        stroke-width="1.5" stroke-linecap="round">
-                        <rect x="3" y="3" width="18" height="18" rx="2" />
-                        <path d="M3 9h18M9 21V9" />
-                    </svg>
-                    <span data-en="Hotel Photo" data-id="Foto Hotel">Hotel Photo</span>
-                </div>
-                <div class="portfolio-item-label"><span>The Westin</span></div>
-            </div>
-            <div class="portfolio-item">
-                <div class="portfolio-item-placeholder">
-                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="rgba(27,58,92,0.3)"
-                        stroke-width="1.5" stroke-linecap="round">
-                        <rect x="3" y="3" width="18" height="18" rx="2" />
-                        <path d="M3 9h18M9 21V9" />
-                    </svg>
-                    <span data-en="Hotel Photo" data-id="Foto Hotel">Hotel Photo</span>
-                </div>
-                <div class="portfolio-item-label"><span>Four Points</span></div>
-            </div>
-            <div class="portfolio-item">
-                <div class="portfolio-item-placeholder">
-                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="rgba(27,58,92,0.3)"
-                        stroke-width="1.5" stroke-linecap="round">
-                        <rect x="3" y="3" width="18" height="18" rx="2" />
-                        <path d="M3 9h18M9 21V9" />
-                    </svg>
-                    <span data-en="Hotel Photo" data-id="Foto Hotel">Hotel Photo</span>
-                </div>
-                <div class="portfolio-item-label"><span>HARRIS Hotel</span></div>
-            </div>
-            <div class="portfolio-item">
-                <div class="portfolio-item-placeholder">
-                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="rgba(27,58,92,0.3)"
-                        stroke-width="1.5" stroke-linecap="round">
-                        <rect x="3" y="3" width="18" height="18" rx="2" />
-                        <path d="M3 9h18M9 21V9" />
-                    </svg>
-                    <span data-en="Hotel Photo" data-id="Foto Hotel">Hotel Photo</span>
-                </div>
-                <div class="portfolio-item-label"><span>Ibis Hotels</span></div>
-            </div>
-            <div class="portfolio-item">
-                <div class="portfolio-item-placeholder">
-                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="rgba(27,58,92,0.3)"
-                        stroke-width="1.5" stroke-linecap="round">
-                        <rect x="3" y="3" width="18" height="18" rx="2" />
-                        <path d="M3 9h18M9 21V9" />
-                    </svg>
-                    <span data-en="Hotel Photo" data-id="Foto Hotel">Hotel Photo</span>
-                </div>
-                <div class="portfolio-item-label"><span>Novotel</span></div>
-            </div>
-            <div class="portfolio-item">
-                <div class="portfolio-item-placeholder">
-                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="rgba(27,58,92,0.3)"
-                        stroke-width="1.5" stroke-linecap="round">
-                        <rect x="3" y="3" width="18" height="18" rx="2" />
-                        <path d="M3 9h18M9 21V9" />
-                    </svg>
-                    <span data-en="Hotel Photo" data-id="Foto Hotel">Hotel Photo</span>
-                </div>
-                <div class="portfolio-item-label"><span>Pullman Hotels</span></div>
-            </div>
-        </div>
-
-        <!-- Client Logos -->
-        <div class="client-logos reveal">
-            <div class="client-logos-title" data-en="Trusted by Hotels Across Indonesia"
-                data-id="Dipercaya Hotel-Hotel di Seluruh Indonesia">Trusted by Hotels Across Indonesia</div>
-            <div class="client-logos-grid">
-                <div class="client-logo-item">The Sankara Resort</div>
-                <div class="client-logo-item">Best Western</div>
-                <div class="client-logo-item">Villa So long</div>
-                <div class="client-logo-item">The Layar Seminyak</div>
-                <div class="client-logo-item">Ketapang Indah Hotel</div>
-                <div class="client-logo-item">Java Paragon Hotel</div>
-                <div class="client-logo-item">Hotel Bumi</div>
-                <div class="client-logo-item">Aston Hotels</div>
-                <div class="client-logo-item">AriaHotel</div>
-                <div class="client-logo-item">Swiss-Belhotel</div>
             </div>
         </div>
     </section>
@@ -2246,46 +1915,6 @@
                     data-id="Komunikasi langsung dengan tim kami untuk setiap pesanan. Tidak ada perantara, tidak ada respons tertunda — hanya pasokan perhotelan yang mudah.">
                     Direct communication with our team for every order. No intermediaries, no delayed responses — just
                     straightforward hospitality supply.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- ABOUT -->
-    <section id="about">
-        <div class="about-inner">
-            <div class="about-visual reveal">
-                <div class="about-img-main">
-                    <div class="about-img-placeholder">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.2)"
-                            stroke-width="1.2" stroke-linecap="round">
-                            <rect x="3" y="3" width="18" height="18" rx="2" />
-                            <path d="M3 9h18M9 21V9" />
-                        </svg>
-                        <span data-en="Company Image" data-id="Gambar Perusahaan">Company Image</span>
-                    </div>
-                </div>
-                <div class="about-badge-float">
-                    <div class="num">2007</div>
-                    <div class="lbl" data-en="Est. Surabaya" data-id="Berdiri di Surabaya">Est. Surabaya</div>
-                </div>
-            </div>
-            <div class="about-content reveal reveal-delay-1">
-                <div class="section-eyebrow" data-en="About Pinessa" data-id="Tentang Pinessa">About Pinessa</div>
-                <h2 class="section-title" data-en="Supplying Excellence to Indonesian Hospitality"
-                    data-id="Memasok Keunggulan untuk Perhotelan Indonesia">Supplying Excellence to Indonesian
-                    Hospitality</h2>
-                <p class="about-text"
-                    data-en="Pinessa was founded in 2007 with a straightforward goal: to give Indonesian hotels access to hotel-grade amenities that match international standards — at supply prices that make business sense."
-                    data-id="Pinessa didirikan pada tahun 2007 dengan tujuan sederhana: memberi hotel-hotel Indonesia akses ke perlengkapan hotel berstandar internasional — dengan harga pasokan yang masuk akal secara bisnis.">
-                    Pinessa was founded in 2007 with a straightforward goal: to give Indonesian hotels access to
-                    hotel-grade amenities that match international standards — at supply prices that make business
-                    sense.</p>
-                <p class="about-text"
-                    data-en="Over more than 15 years, we have grown from a small regional supplier into a trusted name across Java, Bali, Sumatra, and beyond. Our team understands the demands of hotel operations — consistency, reliability, and the importance of every detail a guest encounters."
-                    data-id="Selama lebih dari 15 tahun, kami telah berkembang dari pemasok regional kecil menjadi nama terpercaya di seluruh Jawa, Bali, Sumatera, dan sekitarnya. Tim kami memahami tuntutan operasi hotel — konsistensi, keandalan, dan pentingnya setiap detail yang ditemui tamu.">
-                    Over more than 15 years, we have grown from a small regional supplier into a trusted name across
-                    Java, Bali, Sumatra, and beyond. Our team understands the demands of hotel operations — consistency,
-                    reliability, and the importance of every detail a guest encounters.</p>
             </div>
         </div>
     </section>
@@ -2421,7 +2050,7 @@
     <footer>
         <div class="footer-top">
             <div class="footer-brand">
-                <!-- LOGO: Replace with your logo file once uploaded, e.g. <img src="logo.png" alt="Pinessa Logo" class="footer-logo"> -->
+                <!-- PHOTO NEEDED: Pinessa logo (light/reversed version for dark navy footer background) | Recommended: transparent PNG, ~80px tall -->
                 <img src="logo_dark.png" alt="Pinessa Logo" class="footer-logo">
                 <p class="footer-tagline"
                     data-en="Complete hotel amenities supplier, trusted by Indonesian hospitality since 2007. Quality products, reliable service, custom branding available."
@@ -2435,8 +2064,6 @@
                     <li><a href="#why" data-en="Why Pinessa" data-id="Mengapa Pinessa">Why Pinessa</a></li>
                     <li><a href="#products" data-en="Products" data-id="Produk">Products</a></li>
                     <li><a href="#custom" data-en="Custom Branding" data-id="Branding Khusus">Custom Branding</a></li>
-                    <li><a href="#portfolio" data-en="Portfolio" data-id="Portofolio">Portfolio</a></li>
-                    <li><a href="#about" data-en="About" data-id="Tentang Kami">About</a></li>
                 </ul>
             </div>
             <div class="footer-col">
@@ -2628,13 +2255,8 @@
                 grid.innerHTML += `
       <div class="product-card">
         <div class="product-img-wrap">
-          <!-- PHOTO: Product photograph for "${pd.name}" goes here.
-               Replace the placeholder div below with, e.g.:
-               <img src="images/products/${key}/${pd.name.toLowerCase().replace(/[^a-z0-9]+/g,'-')}.jpg" alt="${pd.name}">
-               Recommended: square image, min 600x600px, consistent background/lighting across the catalog. -->
-          <div class="product-img-placeholder">
-            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="rgba(27,58,92,0.25)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-          </div>
+          <!-- PHOTO NEEDED: Product photograph for "${pd.name}" | Recommended: square, min 600x600px, consistent background/lighting across the catalog -->
+          <img src="images/products/${key}/${p.en.name.toLowerCase().replace(/[^a-z0-9]+/g,'-')}.jpg" alt="${pd.name}">
         </div>
         <div class="product-card-body">
           <div class="product-card-name">${pd.name}</div>
